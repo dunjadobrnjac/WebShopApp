@@ -1,0 +1,97 @@
+.cat {
+    font-size: x-large;
+    color: #000;
+    border-bottom: lightblue solid 3px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+}
+
+.cat-content {
+    margin: 0px 0px 20px 0px;
+    padding: 10px 0px 10px 0px;
+    border-bottom: lightblue solid 3px;
+}
+
+.mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+    background-color: lightblue;
+    font-size: x-large;
+    padding: 20px;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
+.mat-mdc-standard-chip.mat-mdc-chip-selected.mat-primary,
+.mat-mdc-standard-chip.mat-mdc-chip-highlighted.mat-primary {
+    background-color: rgb(99, 130, 189);
+}
+
+.toolbar {
+    background-color: rgb(99, 130, 189);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 24px;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
+.paginator {
+    background-color: rgb(99, 130, 189);
+    border-radius: 10px;
+    box-shadow: 0 0.05rem 0.75rem #8690a3;
+    margin-top: 20px;
+    padding: 5px;
+    color: #fff;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
+
+::ng-deep .mat-mdc-option {
+    background-color: rgb(99, 130, 189);
+
+    .mdc-list-item__primary-text {
+        color: #fff;
+    }
+}
+
+::ng-deep .mat-mdc-select-panel-above div.mat-mdc-select-panel {
+    background-color: lightblue;
+    padding: 0px;
+}
+
+::ng-deep .mat-mdc-paginator {
+
+    /*boja za < >*/
+    .mat-mdc-paginator-icon {
+        fill: #fff;
+    }
+
+    .mat-mdc-icon-button[disabled] .mat-mdc-paginator-icon,
+    .cdk-high-contrast-active {
+        fill: #fff;
+        opacity: 0.3;
+    }
+
+    /*boja za selektovani broj*/
+    .mat-mdc-select-value {
+        color: #fff;
+    }
+
+    /*boja za tekst u paginatoru*/
+    .mat-mdc-paginator-outer-container {
+        color: #fff;
+    }
+
+    .mat-mdc-select-arrow svg {
+        fill: #fff;
+    }
+
+}
+
+/*
+za prelom teksta iz p taga
+.text-limit {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}*/

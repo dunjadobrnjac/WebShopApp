@@ -1,0 +1,53 @@
+<mat-toolbar class="toolbar" (click)="displayFilterDiv()">
+    <i class="fal fa-list" style="margin-right: 10px"></i>
+    <span>Filtriraj ponude</span>
+</mat-toolbar>
+
+<div class="filter-area" *ngIf="showFilterDiv">
+    <form class="form" fxLayout="row wrap" fxLayoutGap="10px">
+        <mat-form-field class="mat-input">
+            <mat-label>Naziv proizvoda</mat-label>
+            <input matInput placeholder="Naziv proivoda" [(ngModel)]="itemName" name="itemName">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input">
+            <mat-label>Kategorija</mat-label>
+            <mat-select [(ngModel)]="itemCategory" name="category">
+                <mat-option *ngFor="let category of allcategories" [value]="category">
+                    {{category}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="mat-input">
+            <mat-label>Cijena od (BAM)</mat-label>
+            <input matInput placeholder="Cijena od (BAM)" [(ngModel)]="itemPriceMin" name="itemPriceMin">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input">
+            <mat-label>Cijena do (BAM)</mat-label>
+            <input matInput placeholder="Cijena do (BAM)" [(ngModel)]="itemPriceMax" name="itemPriceMax">
+        </mat-form-field>
+
+        <mat-form-field class="mat-input">
+            <mat-label>Stanje proizvoda</mat-label>
+            <mat-select [(ngModel)]="itemStatus" name="prodStatus">
+                <mat-option value="--">--</mat-option>
+                <mat-option value="Novo">Novo</mat-option>
+                <mat-option value="Korišteno">Korišteno</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="mat-input">
+            <mat-label>Lokacija</mat-label>
+            <mat-select [(ngModel)]="itemLocation" name="itemLocation">
+                <mat-option *ngFor="let location of alllocations" [value]="location">
+                    {{location}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+    <div style="text-align: center;">
+        <button mat-raised-button class="filterButton" (click)="clickFilterItems()">Filtriraj</button>
+    </div>
+</div>

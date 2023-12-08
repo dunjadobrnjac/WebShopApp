@@ -1,0 +1,9 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="textarea" hideRequiredMarker>
+        <mat-label>Unesi komentar</mat-label>
+        <textarea matInput formControlName="title" style="min-height: 60px;"></textarea>
+    </mat-form-field>
+    <button class="comment-form-button" type="submit" [disabled]="form.invalid">
+        {{ submitLabel }}
+    </button>
+</form>

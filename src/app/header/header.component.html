@@ -1,0 +1,13 @@
+<div class="header" [ngClass]="getHeaderClass()">
+    <img class="header-img" src="https://xxlclass.com/wp-content/uploads/2017/02/webshop-300x300.jpg">
+    <span class="header-title">Web Shopp App</span>
+    <a class="shopping-link" routerLink="/shopping-card" routerLinkActive="active" matTooltip="Pogledaj korpu"
+        matTooltipPosition="below">
+        <i class="shopping-link-icon fal fa-shopping-basket"></i>
+        <p>{{totalPrice}} KM</p>
+    </a>
+    <button class="login-button" routerLink="/login">
+        <mat-icon> login</mat-icon>
+        Prijava / Registracija
+    </button>
+</div>

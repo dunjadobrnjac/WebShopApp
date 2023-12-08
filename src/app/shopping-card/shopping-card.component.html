@@ -1,0 +1,99 @@
+<mat-stepper orientation="vertical" linear animationDuration="1500" class="stepper">
+    <mat-step>
+        <ng-template matStepLabel>Odabrani proizvodi</ng-template>
+        <!--<mat-card *ngFor="let el of niz" class="mat-card-element">
+            <div class="mat-card-content-container">
+                <div class="left-container">
+                    <div class="mat-card-image-container">
+                        <img mat-card-image src="./../../favicon.ico" alt="Photo">
+                    </div>
+                    <div class="mat-card-content">
+                        <mat-card-header>
+                            <div style="margin-bottom: 10px;">
+                                <mat-card-title>Samsung Galaxy A4</mat-card-title>
+                                <mat-card-subtitle>Telefon</mat-card-subtitle>
+                            </div>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>Cijena: 1200KM</p>
+                            <p> Količina: 1</p>
+                        </mat-card-content>
+                    </div>
+                </div>
+                <div *ngIf="showPaymentStep">
+                    <mat-card-actions class="right-container">
+                        <p>Ukupno: 1200KM</p>
+                        <button mat-fab class="delete-button">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </div>
+        </mat-card>
+    -->
+        <h3 *ngIf="items.length === 0">Niste dodali proizvode u korpu.</h3>
+        <mat-card *ngFor="let item of items" class="mat-card-element">
+            <div class="mat-card-content-container">
+                <div class="left-container">
+                    <div class="mat-card-image-container">
+                        <!-- <img mat-card-image class="img" [src]="item.images[0]" alt="Photo">
+                   -->
+                    </div>
+                    <div class="mat-card-content">
+                        <mat-card-header style=" width: 50%;">
+                            <div style="margin-bottom: 10px;">
+                                <mat-card-title>{{item.name}}</mat-card-title>
+                                <mat-card-subtitle>{{item.category.name}}</mat-card-subtitle>
+                            </div>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>{{item.price}}KM</p>
+                        </mat-card-content>
+                    </div>
+                </div>
+                <div *ngIf="showPaymentStep">
+                    <mat-card-actions class="right-container">
+                        <button mat-fab class="delete-button" (click)="deleteItem(item)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+            </div>
+        </mat-card>
+        <h3 class="total">Ukupno: {{totalPrice}}KM</h3>
+        <div class="buttons-space-between">
+            <button mat-raised-button matStepperNext *ngIf="showPaymentStep" [disabled]="items.length === 0">Nastavi sa
+                kupovinom</button>
+            <button mat-raised-button (click)="openDialog('500ms', '700ms')" *ngIf="showPaymentStep"
+                [disabled]="items.length === 0">Isprazni korpu
+            </button>
+        </div>
+    </mat-step>
+
+    <mat-step [completed]="isSecondStepCompleted" *ngIf="showPaymentStep">
+        <ng-template matStepLabel>Plaćanje</ng-template>
+        <p>Odaberite način plaćanja proizvoda.</p>
+        <mat-form-field class="mat-input" appearance="outline">
+            <mat-label>Način plaćanja</mat-label>
+            <mat-select required [formControl]="paymentControl">
+                <mat-option value="kartica">Plaćanje karticom</mat-option>
+                <mat-option value="preuzimanje">Prilikom preuzimanja</mat-option>
+            </mat-select>
+            <mat-error *ngIf="paymentControl.hasError('required')">
+                Odaberite način plaćanja!
+            </mat-error>
+        </mat-form-field>
+        <div class="button-div">
+            <button mat-raised-button matStepperPrevious>Natrag na pregled</button>
+            <button mat-raised-button matStepperNext (click)="showThirdStep()">Završi kupovinu</button>
+        </div>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Potvrda</ng-template>
+        <div class="third-step-content">
+            <h2 class="text">Hvala Vam na kupovini!</h2>
+            <i class="fa fa-check-circle doneIcon"></i>
+        </div>
+    </mat-step>
+</mat-stepper>

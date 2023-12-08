@@ -1,0 +1,24 @@
+.comment-form-button {
+    font-size: 16px;
+    padding: 8px 16px;
+    background: rgb(99, 130, 189);
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+    border-radius: 20px;
+    color: white;
+}
+
+.comment-form-button:hover:enabled {
+    cursor: pointer;
+    background: rgb(99, 130, 189);
+}
+
+.comment-form-button:disabled {
+    opacity: 0.8;
+    cursor: default;
+}
+
+.textarea {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}

@@ -1,0 +1,9 @@
+.container {
+    background-color: rgb(215, 225, 228);
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 40px;
+}

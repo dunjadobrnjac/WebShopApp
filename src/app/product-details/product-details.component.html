@@ -1,0 +1,44 @@
+<div class="wrapper">
+    <div class="container">
+        <!--<app-carousel [images]="selectedProduct.images"></app-carousel>
+        -->
+        <h2 style="margin-top: 20px;">{{selectedProduct.name}}</h2>
+        <h3 style="display: flex; align-items: center; padding-right: 5px;">
+            <mat-icon>sell</mat-icon>{{selectedProduct.price}}KM
+        </h3>
+        <div class="group" style="padding-top: 20px;">
+            <div class="item">
+                <mat-icon class="icon">category</mat-icon>
+                <span>{{selectedProduct.category.name}}</span>
+            </div>
+            <div class="item">
+                <mat-icon class="icon">location_on</mat-icon>
+                <span>{{selectedProduct.location}}</span>
+            </div>
+            <div class="item">
+                <mat-icon class="icon">note</mat-icon>
+                <span>{{selectedProduct.status ==1 ? "Novo":"Korišteno"}}</span>
+            </div>
+        </div>
+        <div class="group">
+            <div class="item">
+                <mat-icon class="icon">schedule</mat-icon>
+                <span>{{selectedProduct.creation_date}}</span>
+            </div>
+            <div class="item">
+                <mat-icon class="icon">account_box</mat-icon>
+                <span>{{selectedProduct.user.username}}</span>
+            </div>
+            <div class="item" *ngIf="selectedProduct.user.telephone !== null">
+                <mat-icon class="icon">contact_phone</mat-icon>
+                <span>{{selectedProduct.user.telephone}}</span>
+            </div>
+        </div>
+        <div>
+            <h3 class="description-header">Detaljan opis</h3>
+            <span>{{selectedProduct.description}}
+            </span>
+        </div>
+        <app-comments currentUserId="1"></app-comments>
+    </div>
+</div>

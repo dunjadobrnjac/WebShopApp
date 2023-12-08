@@ -1,0 +1,30 @@
+.container {
+    background-color: lightblue;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+
+    .fa-search {
+        padding: 12px 16px 12px 26px;
+        font-size: large;
+    }
+
+    .close-btn {
+        border-radius: 50%;
+    }
+
+    .fa-close {
+        padding: 16px 10px 16px 10px;
+        font-size: large;
+    }
+
+    .search-control {
+        flex: 1;
+        font-size: x-large;
+        border: 0;
+        outline: none;
+        width: 100%;
+        background-color: lightblue;
+    }
+}

@@ -1,0 +1,72 @@
+.mat-element-card {
+    background-color: transparent;
+    box-shadow: 0 0.05rem 0.75rem #8690a3;
+    border-radius: 10px;
+    height: 380px;
+    display: flex;
+
+    .mat-element-header {
+        background-color: lightblue;
+        border-radius: 10px;
+        padding: 10px;
+        justify-content: center;
+        margin: 10px;
+
+        .mat-element-title {
+            color: #fff;
+            font-size: 18px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+
+
+        .mat-element-subtitle {
+            color: #fff;
+            font-style: italic;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+
+
+    .mat-img {
+        margin: 0 20px 10px 20px;
+        height: 200px;
+    }
+
+
+    .mat-element-header:hover,
+    .mat-element-header:focus {
+        background-color: rgb(99, 130, 189);
+    }
+
+    .mat-price {
+        margin-top: 10px;
+        font-size: large;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+/*za prelom teksta iz p taga*/
+.text-limit {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    .text-limit {
+        -webkit-line-clamp: 5;
+    }
+
+    .mat-element-card {
+        height: 430px;
+    }
+}

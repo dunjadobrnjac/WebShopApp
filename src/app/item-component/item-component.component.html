@@ -1,0 +1,23 @@
+<mat-card class="mat-element-card">
+    <mat-card-header class="mat-element-header" (click)="showItemDetails(item)">
+        <mat-card-title class="mat-element-title">{{item.name}}</mat-card-title>
+        <mat-card-subtitle class="mat-element-subtitle"
+            style="text-align: center;">{{item.category.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <!-- jer trenutno ne ucitavam slike <img mat-card-image [src]="item.images[0]" alt="Photo" class="mat-img" (click)="showItemDetails(item)">
+    -->
+    <mat-card-content>
+        <p class="text-limit">
+            {{item.description}}
+        </p>
+        <div class="mat-price"><b>{{item.price}}KM</b></div>
+    </mat-card-content>
+    <mat-card-actions class="mat-element-buttons">
+        <button mat-button class="mat-button" (click)="showItemDetails(item)">Detalji</button>
+        <button mat-button *ngIf="!isOver && !isOwner" class="mat-button" (click)="addItem(item)">Kupi</button>
+        <button mat-button *ngIf="isOwner" class="mat-button" (click)="ownerDeleteItem(item)">Obriši</button>
+    </mat-card-actions>
+    <div style="justify-content: center; align-items: center; display: flex;">
+        <button mat-button *ngIf="isOver" class="over-button" disabled>Završeno</button>
+    </div>
+</mat-card>

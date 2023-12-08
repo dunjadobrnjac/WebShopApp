@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+/* dodano iz videa za sidenav*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*html,
+body {
+    height: 100%;
+}*/
+
+body {
+    position: relative;
+    /* dodano iz videa za sidenav*/
+    margin: 0;
+    min-height: 100vh;
+    background-color: rgb(218, 231, 236);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

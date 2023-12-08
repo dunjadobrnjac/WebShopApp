@@ -1,0 +1,10 @@
+<div class="container">
+    <h1 mat-dialog-title>Brisanje proizvoda</h1>
+    <div mat-dialog-content>
+        Da li ste sigurni da želite da obrišete sve proizvode iz korpe?
+    </div>
+    <div mat-dialog-actions class="buttons-container">
+        <button mat-button mat-dialog-close>Ne</button>
+        <button mat-button mat-dialog-close cdkFocusInitial (click)="clearCart()">Da</button>
+    </div>
+</div>

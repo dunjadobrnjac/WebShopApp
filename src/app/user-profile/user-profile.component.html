@@ -1,0 +1,182 @@
+<mat-tab-group style="margin-top: -20px;">
+    <mat-tab label="Korisnički profil">
+        <div class="container">
+            <div class="user-avatar-div">
+                <img [src]="user.avatar" alt="avatar" class="user-avatar">
+            </div>
+            <div class="user-info">
+                <mat-toolbar class="user-name-header">
+                    <span>{{user.firstName}} {{user.lastName}}</span>
+                </mat-toolbar>
+                <div class="group-info">
+                    <i class="fal fa-user img"></i>
+                    <p class="info">{{user.userName}}</p>
+                </div>
+                <div class="group-info">
+                    <i class="fal fa-envelope img"></i>
+                    <p class="info">{{user.email}}</p>
+                </div>
+                <div class="group-info">
+                    <i class="fal fa-map-marker img"></i>
+                    <p class="info">{{user.location}}</p>
+                </div>
+                <div class="group-info">
+                    <i class="fal fa-phone img"></i>
+                    <p class="info">{{user.telephone}}</p>
+                </div>
+            </div>
+        </div>
+        <!--
+        <div class="container-body">
+            <mat-toolbar class="toolbar">
+                <span>Moje ponude</span>
+            </mat-toolbar>
+            <mat-tab-group>
+                <mat-tab label="Sve ponude">
+                    <div style="margin: 20px 20px;">
+                        <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                            <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
+                                *ngFor="let item of itemsAll">
+                                <app-item-component [item]="item" [isOwner]=true
+                                    [isOver]="!item.active"></app-item-component>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Aktivne ponude">
+                    <div style="margin: 20px 20px;">
+                        <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                            <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
+                                *ngFor="let item of itemsActive">
+                                <app-item-component [item]="item" [isOwner]=true></app-item-component>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Završene ponude">
+                    <div style="margin: 20px 20px;">
+                        <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                            <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
+                                *ngFor="let item of itemsFinished">
+                                <app-item-component [item]="item" [isOwner]=true
+                                    [isOver]="!item.active"></app-item-component>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        -->
+    </mat-tab>
+
+    <mat-tab label="Uredi profil">
+        <form class="edit-profile-container" [formGroup]="changeUserInfoForm" (ngSubmit)="onChangeUserInfo()">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Ime</mat-label>
+                <input matInput required formControlName="firstNameControl" placeholder="Ime"
+                    [(ngModel)]="user.firstName" name="userFirstName">
+                <mat-error *ngIf="changeUserInfoForm.controls['firstNameControl'].hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Prezime</mat-label>
+                <input matInput required formControlName="lastNameControl" placeholder="Prezime"
+                    [(ngModel)]="user.lastName" name="userLastName">
+                <mat-error *ngIf="changeUserInfoForm.controls['lastNameControl'].hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [(ngModel)]="user.email" name="userEmail" [formControl]="emailFormControl"
+                    [errorStateMatcher]="matcher" placeholder="Email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Unesite validnu email adresu!
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Telefon</mat-label>
+                <input matInput required formControlName="telephoneControl" placeholder="Telefon"
+                    [(ngModel)]="user.telephone" name="userTelephone">
+                <mat-error *ngIf="changeUserInfoForm.controls['telephoneControl'].hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Grad</mat-label>
+                <input matInput required formControlName="locationControl" placeholder="Grad"
+                    [(ngModel)]="user.location" name="userLocation">
+                <mat-error *ngIf="changeUserInfoForm.controls['locationControl'].hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+            </mat-form-field>
+
+            <input type="file" class="file-picker" (change)="onFileSelected($event)" #fileUpload>
+
+            <button mat-raised-button class="updateButton">Sačuvaj izmjene</button>
+        </form>
+    </mat-tab>
+    <mat-tab label="Izmjena lozinke">
+        <form class="edit-profile-container" [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
+            <mat-form-field appearance="outline">
+                <mat-label>Unesite staru lozinku</mat-label>
+                <input matInput required formControlName="oldPasswordControl" [type]="hideOld ? 'password' : 'text'"
+                    [(ngModel)]="oldPassword" name="oldPassword">
+                <button mat-icon-button matSuffix (click)="hideOld = !hideOld">
+                    <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error>
+                    Ovo polje je obavezno!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Unesite novu lozinku</mat-label>
+                <input matInput required formControlName="newPasswordControl" [type]="hideNew1 ? 'password' : 'text'"
+                    [(ngModel)]="newPassword" name="newPassword">
+                <button mat-icon-button matSuffix (click)="hideNew1 = !hideNew1">
+                    <mat-icon>{{hideNew1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="changePasswordForm.controls['newPasswordControl'].hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+                <mat-error *ngIf="changePasswordForm.controls['newPasswordControl'].hasError('minlength')">
+                    Lozinka mora imati minimalno 8 karaktera!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Potvrdite novu lozinku</mat-label>
+                <input matInput required formControlName="confirmPasswordControl"
+                    [type]="hideNew2 ? 'password' : 'text'" [(ngModel)]="confirmPassword" name="confirmPassword">
+                <button mat-icon-button matSuffix (click)="hideNew2 = !hideNew2">
+                    <mat-icon>{{hideNew2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="changePasswordForm.controls['confirmPasswordControl'].hasError('required')">
+                    Ovo polje je obavezno!
+                </mat-error>
+                <mat-error *ngIf="changePasswordForm.controls['confirmPasswordControl'].hasError('minlength')">
+                    Lozinka mora imati minimalno 8 karaktera!
+                </mat-error>
+                <mat-error *ngIf="changePasswordForm.controls['confirmPasswordControl'].hasError('passwordsNotMatch')">
+                    Lozinke se ne podudaraju!
+                </mat-error>
+            </mat-form-field>
+            <div>
+                <div>
+                    <p> &nbsp;</p>
+                </div>
+            </div>
+            <button mat-raised-button class="updateButton" (click)="arePasswordsEqual()">Sačuvaj izmjene</button>
+        </form>
+    </mat-tab>
+</mat-tab-group>

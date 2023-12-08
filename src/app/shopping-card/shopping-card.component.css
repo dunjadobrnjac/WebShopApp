@@ -1,0 +1,177 @@
+.stepper {
+    background-color: rgb(218, 231, 236);
+    margin: -20px;
+}
+
+/*boja kruzica sa brojem*/
+::ng-deep .mat-step-icon-selected {
+    background-color: rgb(99, 130, 189) !important;
+}
+
+::ng-deep .mat-step-icon-state-edit {
+    background-color: rgb(99, 130, 189) !important;
+}
+
+::ng-deep .mat-step-icon {
+    height: 36px !important;
+    width: 36px !important;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
+/*seletor placanja*/
+.mat-input {
+    padding-top: 20px;
+}
+
+/*uklonilo je visak prostora prije i nakon opcija*/
+::ng-deep .cdk-overlay-pane div.mat-mdc-select-panel {
+    padding: 0;
+}
+
+/*boja kad se predje misem preko opcije*/
+.mat-mdc-option.mdc-list-item:hover {
+    align-items: center;
+    background-color: rgb(182, 190, 188);
+}
+
+/*boja prvog elementa u listi koji bude aktivan*/
+mat-mdc-option:focus.mdc-list-item,
+.mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+    background-color: rgb(182, 190, 188);
+}
+
+::ng-deep div.mat-mdc-select-panel {
+    background-color: rgb(99, 130, 189) !important;
+    color: #fff !important;
+}
+
+.mat-mdc-option {
+    color: #fff !important;
+}
+
+.mat-mdc-form-field {
+    width: 40%;
+}
+
+.mat-mdc-form-field-error {
+    width: 250px;
+}
+
+.button-div {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+::ng-deep .mat-mdc-raised-button:not(:disabled) {
+    background-color: rgb(99, 130, 189) !important;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+    color: #fff !important;
+}
+
+/*stilovi za kartice*/
+.mat-card-element {
+    display: flex;
+    margin: 15px 0px;
+    background-color: rgb(215, 225, 228);
+}
+
+.mat-card-element:hover {
+    transform: scale(1.01);
+}
+
+.mat-card-content-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.mat-card-image-container {
+    flex: 0 0 auto;
+    /* da slika da bude fiksne širine */
+    width: 50%;
+    padding: 5px 15px;
+    margin-right: 15px;
+
+    .img {
+        max-height: 100px;
+    }
+}
+
+.mat-card-content {
+    flex: 1;
+    /* Ostatak prostora zauzima sadržaj s desne strane */
+    height: 120px;
+}
+
+.delete-button {
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgb(99, 130, 189);
+}
+
+.buttons-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.third-step-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .text {
+        font-size: 30px;
+    }
+}
+
+.doneIcon {
+    color: rgb(99, 130, 189);
+    font-size: 250px;
+    margin-top: 20px;
+}
+
+.total {
+    margin-bottom: 20px;
+    text-align: end;
+}
+
+
+@media (max-width: 767px) {
+    .mat-card-content-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .left-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .buttons-space-between {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button-div {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

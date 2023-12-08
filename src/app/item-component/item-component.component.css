@@ -1,0 +1,99 @@
+.mat-element-card {
+    background-color: transparent;
+    box-shadow: 0 0.05rem 0.75rem #8690a3;
+    border-radius: 10px;
+
+    .mat-element-header {
+        background-color: lightblue;
+        border-radius: 10px;
+        padding: 10px;
+        justify-content: center;
+        margin: 10px;
+
+        .mat-element-title {
+            color: #fff;
+            font-size: 18px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .mat-element-subtitle {
+            color: #fff;
+            font-style: italic;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+    }
+
+    .mat-element-header:hover {
+        cursor: pointer;
+    }
+
+    .mat-img {
+        margin: 0 20px 10px 20px;
+        height: 200px;
+    }
+
+    .mat-img:hover {
+        cursor: pointer;
+    }
+
+    .mat-element-header:hover,
+    .mat-element-header:focus {
+        background-color: rgb(99, 130, 189);
+    }
+
+    .mat-price {
+        text-align: end;
+        font-size: large;
+        margin-top: 10px;
+    }
+
+    .mat-element-buttons {
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .mat-button {
+            background-color: lightblue;
+            width: 45%;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .mat-button:hover,
+        .mat-button:focus {
+            background-color: rgb(99, 130, 189);
+        }
+    }
+
+    .over-button {
+        color: rgb(244, 112, 112);
+        font-size: medium;
+    }
+}
+
+.mat-element-card:hover {
+    transform: scale(1.05);
+}
+
+
+/*za prelom teksta iz p taga*/
+.text-limit {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+/*@media (max-width: 767px) {
+    .mat-element-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+}*/

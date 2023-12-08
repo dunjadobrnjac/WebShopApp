@@ -1,0 +1,40 @@
+.toolbar {
+    background-color: rgb(99, 130, 189);
+    color: #fff;
+    height: 64px;
+    border-radius: 10px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
+.container {
+    border-radius: 20px;
+    background-color: rgb(182, 190, 188);
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+    padding: 20px 30px;
+}
+
+.textarea {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.button {
+    margin-left: 10px;
+    margin-bottom: 25px;
+}
+
+.mat-mdc-fab.mat-accent,
+.mat-mdc-mini-fab.mat-accent {
+    --mdc-fab-container-color: rgb(99, 130, 189);
+}
+
+/*za tree*/
+.tree-container {
+    background-color: rgb(182, 190, 188);
+}

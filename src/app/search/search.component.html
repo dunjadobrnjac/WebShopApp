@@ -1,0 +1,10 @@
+<mat-toolbar class="container">
+    <mat-toolbar-row>
+        <i class="fal fa-search"></i>
+        <input class="search-control" type="text" placeholder="Pretraga..." #searchbar [(ngModel)]="enteredSearchValue"
+            (input)="onSearchTextChanged()">
+        <button mat-button class="close-btn" (click)="deleteSearchText()">
+            <i class="fal fa-close"></i>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>

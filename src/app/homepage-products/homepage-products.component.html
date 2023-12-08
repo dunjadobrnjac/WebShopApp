@@ -1,0 +1,35 @@
+<app-filter-product [allItems]="allItems"></app-filter-product>
+
+<app-search></app-search>
+
+<div class="cat">Kategorije</div>
+<div class="cat-content">
+    <div fxLayout="row wrap" fxLayoutGap="20px">
+        <mat-chip-listbox aria-label="Kategorije" [(ngModel)]="selectedCategory">
+            <mat-chip-option *ngFor="let category of categories" [value]="category.name"
+                (selectionChange)="selectCategory(category.name)">
+                {{category.name}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+    </div>
+</div>
+
+<mat-toolbar class="toolbar">
+    <span>Aktuelne ponude</span>
+</mat-toolbar>
+
+<div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="20px grid">
+        <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%" *ngFor="let item of pageSlice">
+            <div>
+                <!--*ngIf="searchText==='' || item.title.toLowerCase().includes(searchText.toLowerCase())"-->
+                <app-item-component [item]="item"></app-item-component>
+            </div>
+        </div>
+    </div>
+</div>
+
+<mat-paginator class="paginator" [length]="this.items.length" [pageSize]="8" [pageSizeOptions]="[4, 8, 12, 16]"
+    aria-label="Select page" showFirstLastButtons="true" #paginator (page)="onPageChange($event)">
+
+</mat-paginator>
