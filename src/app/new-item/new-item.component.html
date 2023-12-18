@@ -1,0 +1,49 @@
+<div class="toolbar">
+    <span>Kreirajte novi oglas</span>
+</div>
+<div>
+    <form class="edit-profile-container" [formGroup]="newItemForm" (ngSubmit)="onAddNewItem()">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Naziv</mat-label>
+            <input matInput required formControlName="infoControl" placeholder="Naziv" [(ngModel)]="newItem.name"
+                name="name">
+            <mat-error *ngIf="newItemForm.controls['infoControl'].hasError('required')">
+                Ovo polje je obavezno!
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Cijena</mat-label>
+            <input matInput required formControlName="infoControl" placeholder="Cijena" [(ngModel)]="newItem.price"
+                name="price">
+            <mat-error *ngIf="newItemForm.controls['infoControl'].hasError('required')">
+                Ovo polje je obavezno!
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Lokacija</mat-label>
+            <input matInput required formControlName="infoControl" placeholder="Lokacija" [(ngModel)]="newItem.location"
+                name="location">
+            <mat-error *ngIf="newItemForm.controls['infoControl'].hasError('required')">
+                Ovo polje je obavezno!
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Stanje - ovde treba padajuci meni novo/koristeno</mat-label>
+            <input matInput required formControlName="infoControl" placeholder="Stanje - ovde treba padajuci meni novo/koristeno" [(ngModel)]="itemState"
+                name="userLocation">
+            <mat-error *ngIf="newItemForm.controls['infoControl'].hasError('required')">
+                Ovo polje je obavezno!
+            </mat-error>
+        </mat-form-field>
+        <!--
+    <input type="file" class="file-picker" (change)="onFileSelected($event)" #fileUpload>
+-->
+        <button mat-raised-button class="updateButton">Sačuvaj izmjene</button>
+    </form>
+</div>

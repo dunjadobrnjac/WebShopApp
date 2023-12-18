@@ -55,6 +55,16 @@ export class ItemService {
     return this.httpClient.get<Item>(url);
   }
 
+  public getActiveItems(userId: number) {
+    const url = `${this.baseUrl}/active/${userId}`;
+    return this.httpClient.get<Item>(url);
+  }
+
+  public getFinishedItems(userId: number) {
+    const url = `${this.baseUrl}/finished/${userId}`;
+    return this.httpClient.get<Item>(url);
+  }
+
   public updateItemAvailability(itemId: number): Observable<any> {
     const url = `${this.baseUrl}/${itemId}/update`;
     return this.httpClient.put(url, {}); //{} jer se status postavlja fiksno na 0

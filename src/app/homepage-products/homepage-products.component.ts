@@ -64,8 +64,8 @@ export class HomepageProductsComponent implements OnInit {
     //dobavljanje svih artikala iz baze
     this.itemService.getAllItems().subscribe(
       items => {
-        this.allItems = items;
-        this.items = items;
+        this.allItems = items.sort((a: Item, b: Item) => new Date(b.creation_date).getTime() - new Date(a.creation_date).getTime());
+        this.items = this.allItems;
         console.log(this.allItems);
         this.pageSlice = this.items.slice(0, 8);
       }

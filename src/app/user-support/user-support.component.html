@@ -7,9 +7,9 @@
     <div style="display: flex; flex-direction: row; align-items: flex-end;">
         <mat-form-field class="textarea">
             <mat-label>Postavi pitanje</mat-label>
-            <textarea [(ngModel)]="message" name="message" matInput style="min-height: 150px;"></textarea>
+            <textarea [(ngModel)]="messageText" name="messageText" required matInput style="min-height: 150px;"></textarea>
         </mat-form-field>
-        <button mat-fab class="button" (click)="sendMessage()">
+        <button mat-fab class="button" (click)="sendMessage()" [disabled]="messageText==''">
             <mat-icon>send</mat-icon>
         </button>
     </div>

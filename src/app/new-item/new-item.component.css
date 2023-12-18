@@ -1,0 +1,18 @@
+.toolbar {
+    background-color: rgb(99, 130, 189);
+    color: #fff;
+    height: 64px;
+    border-radius: 10px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
+.updateButton {
+    margin: 0 2px;
+    margin-bottom: 20px;
+}

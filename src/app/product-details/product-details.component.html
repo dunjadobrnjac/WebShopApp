@@ -23,7 +23,7 @@
         <div class="group">
             <div class="item">
                 <mat-icon class="icon">schedule</mat-icon>
-                <span>{{selectedProduct.creation_date}}</span>
+                <span>{{selectedProduct.creation_date | amDateFormat: 'DD.MM.YYYY HH:mm:ss'}}</span>
             </div>
             <div class="item">
                 <mat-icon class="icon">account_box</mat-icon>
@@ -35,10 +35,19 @@
             </div>
         </div>
         <div>
+            <h3 class="description-header">Dodatni atributi</h3>
+            <div class="attribute-grid">
+                <div *ngFor="let attr of attributes">
+                    <span>{{attr.attribute.name}} - {{attr.value}}</span>
+                </div>
+            </div>
+        </div>
+        <div>
             <h3 class="description-header">Detaljan opis</h3>
             <span>{{selectedProduct.description}}
             </span>
         </div>
-        <app-comments currentUserId="1"></app-comments>
+        <app-comments currentUserId={{activeUser.id.toString()}} username={{activeUser.username}}
+            itemId={{selectedProduct.id}}></app-comments>
     </div>
 </div>

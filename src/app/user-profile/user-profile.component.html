@@ -2,31 +2,33 @@
     <mat-tab label="Korisnički profil">
         <div class="container">
             <div class="user-avatar-div">
-                <img [src]="user.avatar" alt="avatar" class="user-avatar">
+                <img src="https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                    alt="avatar" class="user-avatar">
             </div>
+
             <div class="user-info">
                 <mat-toolbar class="user-name-header">
-                    <span>{{user.firstName}} {{user.lastName}}</span>
+                    <span>{{activeUser.first_name}} {{activeUser.last_name}}</span>
                 </mat-toolbar>
                 <div class="group-info">
                     <i class="fal fa-user img"></i>
-                    <p class="info">{{user.userName}}</p>
+                    <p class="info">{{activeUser.username}}</p>
                 </div>
                 <div class="group-info">
                     <i class="fal fa-envelope img"></i>
-                    <p class="info">{{user.email}}</p>
+                    <p class="info">{{activeUser.email}}</p>
                 </div>
                 <div class="group-info">
                     <i class="fal fa-map-marker img"></i>
-                    <p class="info">{{user.location}}</p>
+                    <p class="info">{{activeUser.city}}</p>
                 </div>
-                <div class="group-info">
+                <div class="group-info" *ngIf="activeUser.telephone!=null">
                     <i class="fal fa-phone img"></i>
-                    <p class="info">{{user.telephone}}</p>
+                    <p class="info">{{activeUser.telephone}}</p>
                 </div>
             </div>
         </div>
-        <!--
+
         <div class="container-body">
             <mat-toolbar class="toolbar">
                 <span>Moje ponude</span>
@@ -37,8 +39,10 @@
                         <div fxLayout="row wrap" fxLayoutGap="20px grid">
                             <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
                                 *ngFor="let item of itemsAll">
+                                <!--<app-item-component [item]="item" [isOwner]=true
+                                    [isOver]="!item.active"></app-item-component>-->
                                 <app-item-component [item]="item" [isOwner]=true
-                                    [isOver]="!item.active"></app-item-component>
+                                    [isOver]="item.available==0 ? true : false"></app-item-component>
                             </div>
                         </div>
                     </div>
@@ -59,14 +63,13 @@
                             <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
                                 *ngFor="let item of itemsFinished">
                                 <app-item-component [item]="item" [isOwner]=true
-                                    [isOver]="!item.active"></app-item-component>
+                                    [isOver]="item.available==0 ? true : false"></app-item-component>
                             </div>
                         </div>
                     </div>
                 </mat-tab>
             </mat-tab-group>
         </div>
-        -->
     </mat-tab>
 
     <mat-tab label="Uredi profil">
@@ -75,7 +78,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Ime</mat-label>
                 <input matInput required formControlName="firstNameControl" placeholder="Ime"
-                    [(ngModel)]="user.firstName" name="userFirstName">
+                    [(ngModel)]="activeUser.first_name" name="userFirstName">
                 <mat-error *ngIf="changeUserInfoForm.controls['firstNameControl'].hasError('required')">
                     Ovo polje je obavezno!
                 </mat-error>
@@ -84,7 +87,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Prezime</mat-label>
                 <input matInput required formControlName="lastNameControl" placeholder="Prezime"
-                    [(ngModel)]="user.lastName" name="userLastName">
+                    [(ngModel)]="activeUser.last_name" name="userLastName">
                 <mat-error *ngIf="changeUserInfoForm.controls['lastNameControl'].hasError('required')">
                     Ovo polje je obavezno!
                 </mat-error>
@@ -92,8 +95,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [(ngModel)]="user.email" name="userEmail" [formControl]="emailFormControl"
-                    [errorStateMatcher]="matcher" placeholder="Email">
+                <input type="email" matInput [(ngModel)]="activeUser.email" name="userEmail"
+                    [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Email">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                     Unesite validnu email adresu!
                 </mat-error>
@@ -105,7 +108,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Telefon</mat-label>
                 <input matInput required formControlName="telephoneControl" placeholder="Telefon"
-                    [(ngModel)]="user.telephone" name="userTelephone">
+                    [(ngModel)]="activeUser.telephone" name="userTelephone">
                 <mat-error *ngIf="changeUserInfoForm.controls['telephoneControl'].hasError('required')">
                     Ovo polje je obavezno!
                 </mat-error>
@@ -114,7 +117,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Grad</mat-label>
                 <input matInput required formControlName="locationControl" placeholder="Grad"
-                    [(ngModel)]="user.location" name="userLocation">
+                    [(ngModel)]="activeUser.city" name="userLocation">
                 <mat-error *ngIf="changeUserInfoForm.controls['locationControl'].hasError('required')">
                     Ovo polje je obavezno!
                 </mat-error>

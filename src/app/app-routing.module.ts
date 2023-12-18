@@ -7,6 +7,7 @@ import { ShoppingCardComponent } from './shopping-card/shopping-card.component';
 import { UserSupportComponent } from './user-support/user-support.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { MyPurchasesComponent } from './my-purchases/my-purchases.component';
+import { NewItemComponent } from './new-item/new-item.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage-products', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'user-support', component: UserSupportComponent },
   { path: 'product-details/:id', component: ProductDetailsComponent },
   { path: 'my-purchases', component: MyPurchasesComponent },
+  { path: 'new-item', component: NewItemComponent },
 
 ];
 

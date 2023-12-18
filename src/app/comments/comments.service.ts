@@ -17,17 +17,20 @@ export class CommentsService {
   /*dodavanje unesenog komentara */
   createComment(
     text: string,
-    parentId: string | null = null
+    parentId: string | null = null,
+    username: string,
+    userId: string,
+    itemId: number
   ): Observable<CommentInterface> {
     return this.httpClient.post<CommentInterface>(
       'http://localhost:3000/comments',
       {
-        body: text,
-        parentId,
-        // Should not be set here, ovo treba biti na backendu
+        itemId: itemId, //id oglasa za koji se kreira komentar
+        body: text, //tekst komentara
+        parentId, //id komentara ako je odgovor, null ako je prvi niz komentara
         createdAt: new Date().toISOString(),
-        userId: '1', //id aktivnog korisnika i njegov username
-        username: 'John',
+        userId: userId, //id aktivnog korisnika i njegov username
+        username: username,
       }
     );
   }

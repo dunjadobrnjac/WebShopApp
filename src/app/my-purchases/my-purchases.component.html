@@ -1,3 +1,6 @@
+<div class="toolbar">
+    <span>Moje kupovine</span>
+</div>
 <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="20px grid">
         <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%" *ngFor="let item of items">
@@ -9,15 +12,17 @@
                         <mat-card-subtitle class="mat-element-subtitle"
                             style="text-align: center;">{{item.category_name}}</mat-card-subtitle>
                     </mat-card-header>
-                    <!--
-                    <img mat-card-image [src]="item.images[0]" alt="Photo" class="mat-img">
-                    -->
-                    <mat-card-content>
+
+                    <img mat-card-image
+                        src="https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                        alt="Photo" class="mat-img">
+
+                    <mat-card-content style="padding-bottom: 10px;">
                         <p class="text-limit">
                             {{item.description}}
                         </p>
                         <div class="mat-price">
-                            <i>{{item.date | amDateFormat: 'DD-MM-YYYY HH:mm:ss'}}</i>
+                            <i>{{item.date | amDateFormat: 'DD.MM.YYYY HH:mm:ss'}}</i>
                             <b>{{item.price}}KM</b>
                         </div>
                     </mat-card-content>

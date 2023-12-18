@@ -1,9 +1,24 @@
+.toolbar {
+    background-color: rgb(99, 130, 189);
+    color: #fff;
+    height: 64px;
+    border-radius: 10px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+}
+
 .mat-element-card {
     background-color: transparent;
     box-shadow: 0 0.05rem 0.75rem #8690a3;
     border-radius: 10px;
-    height: 380px;
+    height: 420px;
     display: flex;
+    padding-bottom: 10px;
 
     .mat-element-header {
         background-color: lightblue;
@@ -57,7 +72,7 @@
 .text-limit {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     overflow: hidden;
 }
 
@@ -67,6 +82,6 @@
     }
 
     .mat-element-card {
-        height: 430px;
+        height: 440px;
     }
 }

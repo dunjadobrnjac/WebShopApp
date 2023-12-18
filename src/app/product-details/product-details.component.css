@@ -38,6 +38,13 @@
     border-bottom: 2px solid rgb(175, 201, 211);
 }
 
+.attribute-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+
 @media (max-width: 1024px) {
     .container {
         width: 70%;
@@ -51,5 +58,11 @@
 
     .container {
         width: 90%;
+    }
+
+    .attribute-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 10px;
     }
 }

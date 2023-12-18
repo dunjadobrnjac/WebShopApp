@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatRippleModule } from '@angular/material/core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -47,6 +48,7 @@ import { ItemComponentComponent } from './item-component/item-component.componen
 import { MyPurchasesComponent } from './my-purchases/my-purchases.component';
 
 import { MomentModule } from 'ngx-moment';
+import { NewItemComponent } from './new-item/new-item.component';
 
 @NgModule({
     declarations: [
@@ -65,6 +67,7 @@ import { MomentModule } from 'ngx-moment';
         ProductDetailsComponent,
         ItemComponentComponent,
         MyPurchasesComponent,
+        NewItemComponent,
     ],
     providers: [MatPaginatorIntl,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
@@ -82,7 +85,7 @@ import { MomentModule } from 'ngx-moment';
         ReactiveFormsModule,
         MatCardModule, MatToolbarModule, MatButtonModule, FlexLayoutModule,
         MatFormFieldModule, MatInputModule, MatSelectModule,
-        MatTooltipModule, MatTabsModule,
+        MatTooltipModule, MatTabsModule, MatRippleModule,
         MatSnackBarModule, MatStepperModule, MatDialogModule,
         MatTreeModule,
         CarouselModule,

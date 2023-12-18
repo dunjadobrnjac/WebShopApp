@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemService } from '../services/item.service';
+import { UserService } from '../services/user.service';
+import { AttributeService } from '../services/attribute.service';
 
 interface Category {
   id: number;
@@ -32,6 +34,20 @@ interface Item {
   category: Category;
 }
 
+interface Attribute {
+  id: number;
+  name: string;
+  status: number;
+  category: Category,
+}
+
+interface ItemAttribute {
+  id: number;
+  item: Item;
+  attribute: Attribute;
+  value: string;
+}
+
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -41,7 +57,12 @@ export class ProductDetailsComponent implements OnInit {
   selectedProduct!: Item; //odabrani proizvod
 
   constructor(private route: ActivatedRoute,
-    private itemService: ItemService) { }
+    private itemService: ItemService,
+    private userService: UserService,
+    private attributeService: AttributeService) { }
+
+  activeUser!: User;
+  attributes: ItemAttribute[] = [];
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -52,7 +73,20 @@ export class ProductDetailsComponent implements OnInit {
           this.selectedProduct = item;
         }
       );
+
+      this.attributeService.getItemAttributes(elementId).subscribe(
+        attr => {
+          this.attributes = attr;
+        }
+      );
     });
+
+    this.userService.getUserById(1).subscribe( //dohvata trenutnog korisnika
+      user => {
+        this.activeUser = user;
+      }
+    );
+
   }
 
 }

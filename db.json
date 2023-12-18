@@ -1,44 +1,31 @@
 {
   "comments": [
     {
-      "id": "1",
-      "body": "First comment",
-      "username": "Jack",
+      "itemId": 3,
+      "body": "Komentar za Citroen C5 X",
+      "parentId": null,
+      "createdAt": "2023-12-17T20:13:00.240Z",
       "userId": "1",
-      "parentId": null,
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
+      "username": "dunja123",
+      "id": "PORQr2D"
     },
     {
-      "id": "2",
-      "body": "Second comment",
-      "username": "John",
-      "userId": "2",
-      "parentId": null,
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "id": "3",
-      "body": "First comment first child",
-      "username": "John",
-      "userId": "2",
-      "parentId": "1",
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "id": "4",
-      "body": "Second comment second child",
-      "username": "John",
-      "userId": "2",
-      "parentId": "2",
-      "createdAt": "2021-08-16T23:00:33.010+02:00"
-    },
-    {
-      "body": " Ovo je moj prvi komentar",
-      "parentId": null,
-      "createdAt": "2023-11-06T18:46:14.813Z",
+      "itemId": 3,
+      "body": "Odgovor za Citroen C5 X",
+      "parentId": "PORQr2D",
+      "createdAt": "2023-12-17T20:13:23.989Z",
       "userId": "1",
-      "username": "John",
-      "id": "3ORFnH_"
+      "username": "dunja123",
+      "id": "jX18EbO"
+    },
+    {
+      "itemId": 5,
+      "body": "Pitanje za Passat.",
+      "parentId": null,
+      "createdAt": "2023-12-17T20:16:32.807Z",
+      "userId": "1",
+      "username": "dunja123",
+      "id": "it_8Vug"
     }
   ]
 }

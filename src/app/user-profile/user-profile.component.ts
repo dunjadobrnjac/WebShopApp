@@ -2,6 +2,39 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ItemServiceService } from '../services/item-service.service';
+import { UserService } from '../services/user.service';
+import { ItemService } from '../services/item.service';
+
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  city: string;
+  email: string;
+  telephone: string;
+  status: number;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  status: number;
+}
+
+interface Item {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  location: string;
+  status: number;
+  available: number;
+  creation_date: Date;
+  user: User;
+  category: Category;
+}
+
 
 @Component({
   selector: 'app-user-profile',
@@ -15,15 +48,48 @@ export class UserProfileComponent {
   submittedPassword: boolean = false;
   submittedInfo: boolean = false;
 
-  constructor(private snackBar: MatSnackBar, private formBuilder: FormBuilder,
-    private itemService: ItemServiceService) { }
+  activeUser!: User;
+  itemsActive: Item[] = [];
+  itemsFinished: Item[] = [];
+  itemsAll: Item[] = [];
+
+  constructor(private snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
+    private itemService: ItemServiceService,
+    private iitemService: ItemService,
+    private userService: UserService) { }
+
   ngOnInit() {
+    //učitavanje trenutnog korisnika
+    //ovo je privremeno dok nema prijave
+    this.userService.getUserById(4).subscribe(
+      user => {
+        this.activeUser = user;
+
+        //učitavanje aktivnih oglasa aktivnog korisnika
+        this.iitemService.getActiveItems(user.id).subscribe(
+          items => {
+            this.itemsActive = this.itemsActive.concat(items);
+          }
+        );
+
+        //učitavanje zavšenih oglasa aktivnog korisnika
+        this.iitemService.getFinishedItems(user.id).subscribe(
+          items => {
+            this.itemsFinished = this.itemsFinished.concat(items);
+            this.itemsAll = this.itemsActive.concat(this.itemsFinished);
+          }
+        );
+      }
+    );
+
     /*validacija kod promjene lozinke */
     this.changePasswordForm = this.formBuilder.group({
       oldPasswordControl: ['', [Validators.required]],
       newPasswordControl: ['', [Validators.required, Validators.minLength(8)]],
       confirmPasswordControl: ['', [Validators.required, Validators.minLength(8)]],
     })
+
     /*validacija za izmjenu informacija o korisniku */
     this.changeUserInfoForm = this.formBuilder.group({
       firstNameControl: ['', [Validators.required]],
@@ -48,134 +114,9 @@ export class UserProfileComponent {
       this.itemsAll = this.itemsActive.concat(this.itemsFinished);
 
       //trenutno obrise elemente iz niza, ali treba ponovo iz baze ucitati 
+      //vjerovatno moram dodati novu kolonu u tabeli
     })*/
   }
-
-  user = {
-    "firstName": "Dunja",
-    "lastName": "Dobrnjac",
-    "userName": "dunja123",
-    "email": "dunja@gmail.com",
-    "location": "Banja Luka",
-    "telephone": "065/245-789",
-    "avatar": "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-
-  };
-
-  /*za prikaz mat-card */
-  itemsActive = [
-    {
-      "id": "1",
-      "title": "Samsung Galaxy A4",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": true
-    },
-    {
-      "id": "2",
-      "title": "Samsung Galaxy A04",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": true
-    },
-    {
-      "id": "3",
-      "title": "Samsung Galaxy A4",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": true
-    },
-    {
-      "id": "4",
-      "title": "Samsung Galaxy A04",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": true
-    }
-  ];
-
-  itemsFinished = [
-    {
-      "id": "1",
-      "title": "Samsung Galaxy A4",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": false
-    },
-    {
-      "id": "2",
-      "title": "Samsung Galaxy A04",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": false
-    },
-    {
-      "id": "3",
-      "title": "Samsung Galaxy A4",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": false
-    },
-    {
-      "id": "4",
-      "title": "Samsung Galaxy A04",
-      "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-      "category": "Telefoni",
-      "price": 1200,
-      "status": "Nov",
-      "location": "Banja Luka",
-      "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-      "seller": "marko123",
-      "contact": "065/215-963",
-      "active": false
-    }
-  ];
-
-  itemsAll = this.itemsActive.concat(this.itemsFinished);
-
-
 
 
   /*za odabir slike avatara kod izmjene profila */
@@ -200,24 +141,53 @@ export class UserProfileComponent {
     if (this.newPassword !== this.confirmPassword) {
       this.changePasswordForm.controls['confirmPasswordControl'].setErrors({ passwordsNotMatch: true });
     }
-    if (this.changePasswordForm.valid) {
-      this.snackBar.open("Lozinka je uspješno izmijenjena", '',
-        {
-          duration: 4000, /*ovo mi nije radilo, pa ima u providers */
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
-    }
   }
 
   onChangePassword(): void {
     if (this.changePasswordForm.valid) {
-      this.snackBar.open("Lozinka je uspješno izmijenjena");
+      this.userService.updatePassword(this.activeUser.id, this.oldPassword, this.newPassword).subscribe(
+        response => {
+          if (response) {
+            this.snackBar.open("Lozinka je uspješno izmijenjena.", '',
+              {
+                duration: 4000, /*ovo mi nije radilo, pa ima u providers */
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom'
+              })
+          } else {
+            this.snackBar.open("Ažuriranje nije moguće. Stara lozinka nije odgovarajuća.", '',
+              {
+                duration: 4000, /*ovo mi nije radilo, pa ima u providers */
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom'
+              })
+          }
+        }
+      );
     }
   }
 
   onChangeUserInfo(): void {
-
+    console.log("klinuo na dugme");
+    this.userService.updateUser(this.activeUser).subscribe(
+      user => {
+        if (user != null) {
+          this.snackBar.open("Podaci su uspješno ažurirani.", '',
+            {
+              duration: 4000, /*ovo mi nije radilo, pa ima u providers */
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom'
+            })
+        } else {
+          this.snackBar.open("Desila se greška. Pokušajte kasnije ponovo.", '',
+            {
+              duration: 4000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom'
+            })
+        }
+      }
+    );
   }
 }
 
