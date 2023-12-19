@@ -10,9 +10,58 @@
     margin-top: -20px;
     margin-bottom: 20px;
     box-shadow: 0.25rem 0.25rem 0.55rem #8690a3;
+    padding: 5px;
+}
+
+.form-style {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    gap: 10px;
 }
 
 .updateButton {
     margin: 0 2px;
     margin-bottom: 20px;
+    background-color: rgb(99, 130, 189);
+}
+
+.mat-mdc-raised-button.mat-unthemed {
+    --mdc-protected-button-container-color: rgb(99, 130, 189);
+    --mdc-protected-button-label-text-color: #fff;
+}
+
+.attribute-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/*uklonilo je visak prostora prije i nakon opcija*/
+::ng-deep .cdk-overlay-pane div.mat-mdc-select-panel {
+    padding: 0;
+}
+
+/*boja kad se predje misem preko opcije*/
+.mat-mdc-option.mdc-list-item:hover {
+    align-items: center;
+    background-color: rgb(182, 190, 188);
+}
+
+/*boja prvog elementa u listi koji bude aktivan*/
+mat-mdc-option:focus.mdc-list-item,
+.mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+    background-color: rgb(182, 190, 188);
+}
+
+.mat-mdc-option {
+    background-color: rgb(99, 130, 189);
+}
+
+@media (max-width: 767px) {
+    .attribute-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
