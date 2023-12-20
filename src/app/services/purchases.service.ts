@@ -16,4 +16,14 @@ export class PurchasesService {
     const url = `${this.baseUrl}/${userId}`;
     return this.httpClient.get<Object[]>(url);
   }
+
+  public addNewPurchase(purchase: any) {
+    const url = `${this.baseUrl}/new`;
+    return this.httpClient.post(url, purchase);
+  }
+
+  public addNewPurchaseItems(purchaseItems: any) {
+    const url = "http://localhost:8080/purchaseItem/new";
+    return this.httpClient.post(url, purchaseItems);
+  }
 }

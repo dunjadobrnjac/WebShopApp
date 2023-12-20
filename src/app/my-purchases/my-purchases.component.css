@@ -76,6 +76,12 @@
     overflow: hidden;
 }
 
+.no-elements {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+}
+
 @media (max-width: 767px) {
     .text-limit {
         -webkit-line-clamp: 5;

@@ -33,8 +33,8 @@
             <mat-label>Stanje proizvoda</mat-label>
             <mat-select [(ngModel)]="itemStatus" name="prodStatus">
                 <mat-option value="--">--</mat-option>
-                <mat-option value="Novo">Novo</mat-option>
-                <mat-option value="Korišteno">Korišteno</mat-option>
+                <mat-option value="1">Novo</mat-option>
+                <mat-option value="2">Korišteno</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -46,6 +46,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        
     </form>
     <div style="text-align: center;">
         <button mat-raised-button class="filterButton" (click)="clickFilterItems()">Filtriraj</button>

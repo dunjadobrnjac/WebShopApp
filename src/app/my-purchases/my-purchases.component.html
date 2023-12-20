@@ -1,6 +1,9 @@
 <div class="toolbar">
     <span>Moje kupovine</span>
 </div>
+<div *ngIf="items.length ==0" class="no-elements">
+    <span>Još uvijek niste ostvarili kupovinu</span>
+</div>
 <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="20px grid">
         <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%" *ngFor="let item of items">

@@ -9,6 +9,30 @@ interface Category {
   status: number;
 }
 
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  username: string;
+  city: string;
+  email: string;
+  telephone: string;
+  status: number;
+}
+
+interface Item {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  location: string;
+  status: number;
+  available: number;
+  creation_date: Date;
+  user: User;
+  category: Category;
+}
+
 @Component({
   selector: 'app-filter-product',
   templateUrl: './filter-product.component.html',
@@ -30,7 +54,7 @@ export class FilterProductComponent implements OnInit {
     this.showFilterDiv = !this.showFilterDiv;
   }
 
-  @Input() allItems!: any[];
+  @Input() allItems!: Item[];
   filteredItems: any[] = [];
 
   allcategories = ['--'];
@@ -70,15 +94,16 @@ export class FilterProductComponent implements OnInit {
 
   clickFilterItems() {
     let isActive = false;
+    console.log(this.allItems);
 
     if (this.itemName !== '') {
       console.log("filter name " + this.itemName);
       if (isActive) {
         this.filteredItems = this.filteredItems.filter(item =>
-          item.title.toLowerCase().includes(this.itemName.toLowerCase()));
+          item.name.toLowerCase().includes(this.itemName.toLowerCase()));
       } else {
         this.filteredItems = this.allItems.filter(item =>
-          item.title.toLowerCase().includes(this.itemName.toLowerCase()));
+          item.name.toLowerCase().includes(this.itemName.toLowerCase()));
       }
       isActive = true;
     }
@@ -90,7 +115,7 @@ export class FilterProductComponent implements OnInit {
           item.category === this.itemCategory);
       } else {
         this.filteredItems = this.allItems.filter(item =>
-          item.category === this.itemCategory);
+          item.category.name === this.itemCategory);
       }
       isActive = true;
     }
@@ -126,7 +151,7 @@ export class FilterProductComponent implements OnInit {
           item.status === this.itemStatus);
       } else {
         this.filteredItems = this.allItems.filter(item =>
-          item.status === this.itemStatus);
+          item.status === parseInt(this.itemStatus));
       }
       isActive = true;
     }

@@ -30,7 +30,7 @@ export class MyPurchasesComponent implements OnInit {
   items!: Item[];
 
   ngOnInit(): void {
-    this.purchasesService.getAllPurchasesForUser(1).subscribe( //privremeno je 1 dok nema logovanja korisnika
+    this.purchasesService.getAllPurchasesForUser(2).subscribe( //privremeno je 1 dok nema logovanja korisnika
       //kasnije ce biti proslijedjen id korisnika
       (itemsObject: any[]) => {
         this.items = itemsObject.map(itemData => {

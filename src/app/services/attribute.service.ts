@@ -6,11 +6,21 @@ import { Injectable } from '@angular/core';
 })
 export class AttributeService {
 
-  private baseUrl = 'http://localhost:8080/attribute/item';
+  private baseUrl = 'http://localhost:8080/attribute';
   constructor(private httpClient: HttpClient) { }
 
   public getItemAttributes(id: number) {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${this.baseUrl}/item/${id}`;
     return this.httpClient.get<any>(url);
+  }
+
+  public getCategoryAttributes(id: number) {
+    const url = `${this.baseUrl}/category/${id}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  public addNewItemAttribute(object: any){
+    const url = `${this.baseUrl}/new`;
+    return this.httpClient.post(url, object)
   }
 }
