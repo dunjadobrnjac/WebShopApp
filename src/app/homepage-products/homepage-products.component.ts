@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SearchFilterService } from '../services/search-filter.service';
 import { CategoryService } from '../services/category.service';
 import { ItemService } from '../services/item.service';
+import { ImageService } from '../services/image.service';
 
 interface Category {
   id: number;
@@ -34,7 +35,9 @@ interface Item {
   creation_date: Date;
   user: User;
   category: Category;
+  images: string[];
 }
+
 
 @Component({
   selector: 'app-homepage-products',
@@ -47,7 +50,8 @@ export class HomepageProductsComponent implements OnInit {
     private searchfilterService: SearchFilterService,
     private changeDetectorRef: ChangeDetectorRef,
     private categoryService: CategoryService,
-    private itemService: ItemService) {
+    private itemService: ItemService,
+    private imageService: ImageService) {
 
   }
   searchText: string = ''; /*cuva vrijednost koju korisnik unese */
@@ -64,10 +68,23 @@ export class HomepageProductsComponent implements OnInit {
     //dobavljanje svih artikala iz baze
     this.itemService.getAllItems().subscribe(
       items => {
-        this.allItems = items.sort((a: Item, b: Item) => new Date(b.creation_date).getTime() - new Date(a.creation_date).getTime());
-        this.items = this.allItems;
-        console.log(this.allItems);
-        this.pageSlice = this.items.slice(0, 8);
+
+        for (let item of items) {
+          this.imageService.getImagesForItem(item.id).subscribe(
+            data => {
+              item.images = data;
+              let s = JSON.stringify(data);
+              item.images = JSON.parse(s).images;
+
+              this.allItems = items.sort((a: Item, b: Item) => new Date(b.creation_date).getTime() - new Date(a.creation_date).getTime());
+              this.items = this.allItems;
+
+              console.log("ognje" + JSON.parse(s).images);
+
+              this.pageSlice = this.items.slice(0, 8);
+            }
+          )
+        }
       }
     );
 

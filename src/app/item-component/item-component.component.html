@@ -9,11 +9,13 @@
         <button mat-button *ngIf="isOver" class="over-button" disabled><b>Završeno</b></button>
     </div>
     <div *ngIf="!isOver" style="height:15px; margin-bottom: 7px;"></div>
-    <!--<img mat-card-image [src]="item.images[0]" alt="Photo" class="mat-img" (click)="showItemDetails(item)">-->
-    <img mat-card-image
+    <div *ngIf="item.images != undefined" class="image-container">
+        <img mat-card-image [src]="item.images[0]" alt="Photo" class="mat-img" (click)="showItemDetails(item)">
+    </div>
+    <!--<img mat-card-image
         src="https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
         alt="Photo" class="mat-img" (click)="showItemDetails(item)">
-
+    -->
     <mat-card-content>
         <p class="text-limit">
             {{item.description}}

@@ -32,6 +32,7 @@ interface Item {
   creation_date: Date;
   user: User;
   category: Category;
+  images: string[];
 }
 
 @Component({
@@ -57,6 +58,7 @@ export class ItemComponentComponent {
   /*obrada klika na dugme datalji na kartici, kao i klik na karticu*/
   showItemDetails(item: Item): void {
     this.router.navigate(['/product-details', item.id]);
+    console.log("images " + item.images);
   }
 
   /*obrada klika na dugme kupi */

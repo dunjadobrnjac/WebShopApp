@@ -77,8 +77,8 @@
         </div>
     </div>
 
-    <!--  
-    <input type="file" class="file-picker" (change)="onFileSelected($event)" #fileUpload>
-    -->
+
+    <input type="file" multiple class="file-picker" #imageInput (change)="onFileSelected($event)">
+
     <button mat-raised-button class="updateButton">Kreiraj oglas</button>
 </form>

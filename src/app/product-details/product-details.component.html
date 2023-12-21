@@ -1,7 +1,7 @@
 <div class="wrapper">
-    <div class="container">
-        <!--<app-carousel [images]="selectedProduct.images"></app-carousel>
-        -->
+    <div class="container" *ngIf="selectedProduct != undefined">
+        <app-carousel [images]="selectedProduct.images"></app-carousel>
+
         <h2 style="margin-top: 20px;">{{selectedProduct.name}}</h2>
         <h3 style="display: flex; align-items: center; padding-right: 5px;">
             <mat-icon>sell</mat-icon>{{selectedProduct.price}}KM
@@ -47,7 +47,9 @@
             <span>{{selectedProduct.description}}
             </span>
         </div>
-        <app-comments currentUserId={{activeUser.id.toString()}} username={{activeUser.username}}
-            itemId={{selectedProduct.id}}></app-comments>
+        <div *ngIf="activeUser != undefined">
+            <app-comments currentUserId={{activeUser.id.toString()}} username={{activeUser.username}}
+                itemId={{selectedProduct.id}}></app-comments>
+        </div>
     </div>
 </div>

@@ -13,6 +13,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CarouselComponent implements OnInit {
 
   ngOnInit(): void {
+    console.log("carousel" + this.images);
   }
 
   selectedIndex = 0;

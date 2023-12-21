@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ItemServiceService } from '../services/item-service.service';
 import { UserService } from '../services/user.service';
 import { ItemService } from '../services/item.service';
+import { ImageService } from '../services/image.service';
 
 interface User {
   id: number;
@@ -33,6 +34,7 @@ interface Item {
   creation_date: Date;
   user: User;
   category: Category;
+  images: string[];
 }
 
 
@@ -57,7 +59,8 @@ export class UserProfileComponent {
     private formBuilder: FormBuilder,
     private itemService: ItemServiceService,
     private iitemService: ItemService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private imageService: ImageService) { }
 
   ngOnInit() {
     //učitavanje trenutnog korisnika
@@ -69,6 +72,15 @@ export class UserProfileComponent {
         //učitavanje aktivnih oglasa aktivnog korisnika
         this.iitemService.getActiveItems(user.id).subscribe(
           items => {
+            for (let item of items) {
+              this.imageService.getImagesForItem(item.id).subscribe(
+                data => {
+                  let s = JSON.stringify(data);
+                  item.images = JSON.parse(s).images;
+                }
+              )
+            }
+
             this.itemsActive = this.itemsActive.concat(items);
           }
         );
@@ -76,6 +88,15 @@ export class UserProfileComponent {
         //učitavanje zavšenih oglasa aktivnog korisnika
         this.iitemService.getFinishedItems(user.id).subscribe(
           items => {
+            for (let item of items) {
+              this.imageService.getImagesForItem(item.id).subscribe(
+                data => {
+                  let s = JSON.stringify(data);
+                  item.images = JSON.parse(s).images;
+                }
+              )
+            }
+
             this.itemsFinished = this.itemsFinished.concat(items);
             this.itemsAll = this.itemsActive.concat(this.itemsFinished);
           }

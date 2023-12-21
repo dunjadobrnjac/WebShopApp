@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { AttributeService } from '../services/attribute.service';
+import { ImageService } from '../services/image.service';
 
 interface Category {
   id: number;
@@ -32,6 +33,7 @@ interface Item {
   creation_date: Date;
   user: User;
   category: Category;
+  images: string[];
 }
 
 interface Attribute {
@@ -59,7 +61,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private itemService: ItemService,
     private userService: UserService,
-    private attributeService: AttributeService) { }
+    private attributeService: AttributeService,
+    private imageService: ImageService) { }
 
   activeUser!: User;
   attributes: ItemAttribute[] = [];
@@ -71,6 +74,14 @@ export class ProductDetailsComponent implements OnInit {
       this.itemService.getItemById(elementId).subscribe(
         (item: Item) => {
           this.selectedProduct = item;
+          this.imageService.getImagesForItem(item.id).subscribe(
+            data => {
+              item.images = data;
+              let s = JSON.stringify(data);
+              item.images = JSON.parse(s).images;
+
+            }
+          )
         }
       );
 

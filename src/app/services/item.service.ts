@@ -30,6 +30,7 @@ interface Item {
   creation_date: Date;
   user: User;
   category: Category;
+  images: string[];
 }
 
 @Injectable({
@@ -61,19 +62,25 @@ export class ItemService {
   //dobavljanje activnih oglasa korisnika
   public getActiveItems(userId: number) {
     const url = `${this.baseUrl}/active/${userId}`;
-    return this.httpClient.get<Item>(url);
+    return this.httpClient.get<Item[]>(url);
   }
 
-  //dobavljanje yavsenih oglasa korisnika
+  //dobavljanje zavsenih oglasa korisnika
   public getFinishedItems(userId: number) {
     const url = `${this.baseUrl}/finished/${userId}`;
-    return this.httpClient.get<Item>(url);
+    return this.httpClient.get<Item[]>(url);
   }
 
   //postavljenja na 0 nakon kupovine
   public updateItemAvailability(itemId: number): Observable<any> {
     const url = `${this.baseUrl}/${itemId}/update`;
     return this.httpClient.put(url, {}); //{} jer se status postavlja fiksno na 0
+  }
+
+  //brisanje oglasa
+  public deleteItem(itemId: number) {
+    const url = `${this.baseUrl}/${itemId}/delete`;
+    return this.httpClient.put(url, {});
   }
 
   //dodavanje novog artikla

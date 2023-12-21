@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
 import { AttributeService } from '../services/attribute.service';
@@ -6,6 +6,8 @@ import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImageService } from '../services/image.service';
+import { map } from 'rxjs';
 
 interface Category {
   id: number;
@@ -74,9 +76,11 @@ export class NewItemComponent implements OnInit {
     private attributeService: AttributeService,
     private itemService: ItemService,
     private userService: UserService,
-    private snackbar: MatSnackBar) {
+    private snackbar: MatSnackBar,
+    private imageService: ImageService) {
   }
 
+  @ViewChild('imageInput') imageInput!: ElementRef;
   newItemForm!: FormGroup; /*forma dodavanje novog artikla */
   //objekat za unos
   newItem: Item = {
@@ -95,6 +99,8 @@ export class NewItemComponent implements OnInit {
   categories: Category[] = [];
   attributes: Attribute[] = [];
   newItemAttributes: Attr[] = [];
+
+  newItemIdForImages!: number;
 
   itemObject!: ItemObject;
 
@@ -167,46 +173,66 @@ export class NewItemComponent implements OnInit {
               }
 
 
-              this.itemService.addNewItem(this.itemObject).subscribe(
-                response => {
-                  console.log(response); //vrati kreirani objekat
-                  //ako je kreiran , ispisati snack poruku i obrisati sadrzaj forme
-
-                  //popunjava item_attribute tabelu sa vrijednostima
-
-                  for (let attr of this.newItemAttributes) {
-                    attr.item = response;
-                  }
-                  console.log(this.newItemAttributes);
-
-                  this.attributeService.addNewItemAttribute(this.newItemAttributes).subscribe(
-                    response => {
-                      console.log(response);
-                      if (response != null) {
-                        this.snackbar.open("Uspješno ste dodali novi oglas.", "",
-                          {
-                            duration: 4000,
-                            horizontalPosition: 'center',
-                            verticalPosition: 'top'
-                          }
-                        )
-                        this.newItemForm.reset();
-                        this.newItemForm.markAsPristine();
-                        this.newItemForm.markAsUntouched();
-                      } else {
-                        this.snackbar.open("Dodavanje novog oglasa nije uspjelo. Poušajte kasnije ponovo.", "",
-                          {
-                            duration: 4000,
-                            horizontalPosition: 'center',
-                            verticalPosition: 'top'
-                          }
-                        )
-                      }
+              this.itemService.addNewItem(this.itemObject)
+                .pipe(
+                  map(item => { return item as Item })
+                ).subscribe(
+                  response => {
+                    console.log(response); //vrati kreirani objekat
+                    //ako je kreiran , ispisati snack poruku i obrisati sadrzaj forme
+                    if (response != null) {
+                      this.newItemIdForImages = response.id;
                     }
-                  );
 
-                }
-              );
+                    //popunjava item_attribute tabelu sa vrijednostima
+
+                    for (let attr of this.newItemAttributes) {
+                      attr.item = response;
+                    }
+                    console.log(this.newItemAttributes);
+
+                    this.attributeService.addNewItemAttribute(this.newItemAttributes).subscribe(
+                      response => {
+                        console.log(response);
+                        if (response != null) {
+                          this.snackbar.open("Uspješno ste dodali novi oglas.", "",
+                            {
+                              duration: 4000,
+                              horizontalPosition: 'center',
+                              verticalPosition: 'top'
+                            }
+                          )
+                          this.newItemForm.reset();
+                          this.newItemForm.markAsPristine();
+                          this.newItemForm.markAsUntouched();
+                        } else {
+                          this.snackbar.open("Dodavanje novog oglasa nije uspjelo. Poušajte kasnije ponovo.", "",
+                            {
+                              duration: 4000,
+                              horizontalPosition: 'center',
+                              verticalPosition: 'top'
+                            }
+                          )
+                        }
+                      }
+                    );
+                    if (this.selectedFiles && this.selectedFiles.length > 0) {
+                      const formData = new FormData();
+
+                      for (let i = 0; i < this.selectedFiles.length; i++) {
+                        formData.append('slika', this.selectedFiles[i])
+                      }
+
+                      console.log("id" + this.newItemIdForImages);
+
+                      this.imageService.storeImagesForItem(formData, this.newItemIdForImages).subscribe(
+                        response => {
+                          console.log("Images " + response);
+                        }
+                      );
+                    }
+                  }
+                );
             }
           );
         }
@@ -227,6 +253,12 @@ export class NewItemComponent implements OnInit {
         }
       }
     );
+  }
+
+  selectedFiles!: FileList;
+  onFileSelected(event: any) {
+    this.selectedFiles = event.target.files;
+    console.log("files ->" + this.selectedFiles);
   }
 
 }
