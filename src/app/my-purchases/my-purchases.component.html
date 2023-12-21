@@ -1,7 +1,7 @@
 <div class="toolbar">
     <span>Moje kupovine</span>
 </div>
-<div *ngIf="items.length ==0" class="no-elements">
+<div *ngIf="items != undefined && items.length ==0" class="no-elements">
     <span>Još uvijek niste obavili kupovinu</span>
 </div>
 <div class="content">
@@ -15,17 +15,15 @@
                         <mat-card-subtitle class="mat-element-subtitle"
                             style="text-align: center;">{{item.category_name}}</mat-card-subtitle>
                     </mat-card-header>
-
-                    <img mat-card-image
-                        src="https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-                        alt="Photo" class="mat-img">
-
-                    <mat-card-content style="padding-bottom: 10px;">
+                    <div *ngIf="item.images != undefined" class="image-container">
+                        <img mat-card-image [src]="item.images[0]" alt="Photo" class="mat-img">
+                    </div>
+                    <mat-card-content>
                         <p class="text-limit">
                             {{item.description}}
                         </p>
                         <div class="mat-price">
-                            <i>{{item.date | amDateFormat: 'DD.MM.YYYY HH:mm:ss'}}</i>
+                            <i style="font-size: small;">{{item.date | amDateFormat: 'DD.MM.YYYY HH:mm:ss'}}</i>
                             <b>{{item.price}}KM</b>
                         </div>
                     </mat-card-content>

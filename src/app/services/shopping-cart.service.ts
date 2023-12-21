@@ -29,6 +29,7 @@ interface Item {
   creation_date: Date;
   user: User;
   category: Category;
+  images: string[];
 }
 
 @Injectable({
@@ -43,7 +44,6 @@ export class ShoppingCartService {
   cartItemsSubject = new BehaviorSubject<Item[] | null>([]);
 
   addItemToShoppingCart(addedItem: Item): boolean {
-
     if (this.items.filter(item => item.id === addedItem.id).length === 0) {
       this.items.push(addedItem);
       this.cartItemsSubject.next(this.items); //emituje promjenu kako bi se obavijestila komponenta
@@ -70,6 +70,12 @@ export class ShoppingCartService {
   }
 
   getTotalPrice() {
-    return this.items.reduce((total, item) => total + parseInt(item.price, 10), 0);
+    return this.items.reduce((total, item) => total + this.parsePrice(item.price), 0);
+  }
+
+  parsePrice(price: string): number {
+    // Ukloni razmake iz cijene i pretvori u broj
+    const cleanedPrice = price.replace(/\s/g, '');
+    return parseInt(cleanedPrice, 10);
   }
 }

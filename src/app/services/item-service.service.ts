@@ -36,6 +36,6 @@ interface Item {
 })
 export class ItemServiceService {
 
-  deletedItemSubject = new Subject<Item>();
-  addedItemSubject = new Subject<Item>();
+  //deletedItemSubject = new Subject<Item>();
+  //addedItemSubject = new Subject<Item>();
 }

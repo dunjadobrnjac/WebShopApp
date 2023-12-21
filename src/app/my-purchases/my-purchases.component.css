@@ -16,7 +16,7 @@
     background-color: transparent;
     box-shadow: 0 0.05rem 0.75rem #8690a3;
     border-radius: 10px;
-    height: 420px;
+    /*height: 420px;*/
     display: flex;
     padding-bottom: 10px;
 
@@ -29,11 +29,13 @@
 
         .mat-element-title {
             color: #fff;
-            font-size: 18px;
+            font-size: 17px;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             overflow: hidden;
+            text-overflow: ellipsis;
+            height: 38px;
         }
 
 
@@ -48,16 +50,17 @@
         }
     }
 
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     .mat-img {
         margin: 0 20px 10px 20px;
         height: 200px;
-    }
-
-
-    .mat-element-header:hover,
-    .mat-element-header:focus {
-        background-color: rgb(99, 130, 189);
+        max-width: 100%;
+        object-fit: fill;
     }
 
     .mat-price {
@@ -85,9 +88,5 @@
 @media (max-width: 767px) {
     .text-limit {
         -webkit-line-clamp: 5;
-    }
-
-    .mat-element-card {
-        height: 440px;
     }
 }

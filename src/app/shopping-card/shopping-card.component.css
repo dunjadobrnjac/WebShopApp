@@ -94,18 +94,19 @@ mat-mdc-option:focus.mdc-list-item,
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 70%;
+    width: 80%;
 }
 
 .mat-card-image-container {
     flex: 0 0 auto;
     /* da slika da bude fiksne širine */
-    width: 50%;
+    width: 30%;
     padding: 5px 15px;
     margin-right: 15px;
 
     .img {
-        max-height: 100px;
+        height: 140px;
+        width: 140px;
     }
 }
 
