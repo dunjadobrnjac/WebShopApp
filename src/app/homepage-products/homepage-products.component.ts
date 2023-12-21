@@ -6,37 +6,7 @@ import { SearchFilterService } from '../services/search-filter.service';
 import { CategoryService } from '../services/category.service';
 import { ItemService } from '../services/item.service';
 import { ImageService } from '../services/image.service';
-
-interface Category {
-  id: number;
-  name: string;
-  status: number;
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-}
-
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  location: string;
-  status: number;
-  available: number;
-  creation_date: Date;
-  user: User;
-  category: Category;
-  images: string[];
-}
+import { User, Category, Item } from '../interface/interfaces';
 
 
 @Component({

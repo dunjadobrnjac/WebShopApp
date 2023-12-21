@@ -6,37 +6,7 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { PurchasesService } from '../services/purchases.service';
-
-interface Category {
-  id: number;
-  name: string;
-  status: number;
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-}
-
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  location: string;
-  status: number;
-  available: number;
-  creation_date: Date;
-  user: User;
-  category: Category;
-  images: string[];
-}
+import { User, Item } from '../interface/interfaces';
 
 interface Purchase {
   //id: number;

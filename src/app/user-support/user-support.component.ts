@@ -4,18 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
-
-
-interface Message {
-  text: string;
-  status: number;
-  user: any;
-}
-
-interface MessageNode {
-  name: string;
-  children?: MessageNode[];
-}
+import { Message, MessageNode, ExampleFlatNode } from '../interface/interfaces';
 
 /*const TREE_DATA: MessageNode[] = [
   {
@@ -33,12 +22,6 @@ interface MessageNode {
   },
 ];
 */
-
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-user-support',

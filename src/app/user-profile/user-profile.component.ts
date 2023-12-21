@@ -5,37 +5,7 @@ import { ItemServiceService } from '../services/item-service.service';
 import { UserService } from '../services/user.service';
 import { ItemService } from '../services/item.service';
 import { ImageService } from '../services/image.service';
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-}
-
-interface Category {
-  id: number;
-  name: string;
-  status: number;
-}
-
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  location: string;
-  status: number;
-  available: number;
-  creation_date: Date;
-  user: User;
-  category: Category;
-  images: string[];
-}
+import { User, Item } from '../interface/interfaces';
 
 
 @Component({

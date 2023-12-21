@@ -4,39 +4,10 @@ import { Router } from '@angular/router';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { ItemServiceService } from '../services/item-service.service';
 import { ItemService } from '../services/item.service';
-import { response } from 'express';
+
 import { Location } from '@angular/common';
+import { Item } from '../interface/interfaces';
 
-interface Category {
-  id: number;
-  name: string;
-  status: number;
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-}
-
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  location: string;
-  status: number;
-  available: number;
-  creation_date: Date;
-  user: User;
-  category: Category;
-  images: string[];
-}
 
 @Component({
   selector: 'app-item-component',

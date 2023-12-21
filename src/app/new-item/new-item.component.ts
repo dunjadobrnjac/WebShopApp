@@ -8,12 +8,8 @@ import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ImageService } from '../services/image.service';
 import { map } from 'rxjs';
+import { User, Category, Attr, Attribute } from '../interface/interfaces';
 
-interface Category {
-  id: number;
-  name: string;
-  status: number;
-}
 
 interface Item {
   id: number;
@@ -40,29 +36,6 @@ interface ItemObject {
   category: Category;
 }
 
-interface Attribute {
-  id: number;
-  name: string;
-  status: number;
-  category: Category;
-}
-
-interface Attr {
-  item: any; //dodala
-  attribute: Attribute;
-  value: string;
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-}
 
 @Component({
   selector: 'app-new-item',

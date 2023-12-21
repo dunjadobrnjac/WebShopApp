@@ -4,51 +4,8 @@ import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { AttributeService } from '../services/attribute.service';
 import { ImageService } from '../services/image.service';
+import { User, ItemAttribute, Item } from '../interface/interfaces';
 
-interface Category {
-  id: number;
-  name: string;
-  status: number;
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-}
-
-interface Item {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  location: string;
-  status: number;
-  available: number;
-  creation_date: Date;
-  user: User;
-  category: Category;
-  images: string[];
-}
-
-interface Attribute {
-  id: number;
-  name: string;
-  status: number;
-  category: Category,
-}
-
-interface ItemAttribute {
-  id: number;
-  item: Item;
-  attribute: Attribute;
-  value: string;
-}
 
 @Component({
   selector: 'app-product-details',
