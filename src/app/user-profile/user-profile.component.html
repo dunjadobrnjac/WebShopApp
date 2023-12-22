@@ -36,6 +36,9 @@
             <mat-tab-group>
                 <mat-tab label="Sve ponude">
                     <div style="margin: 20px 20px;">
+                        <div *ngIf="itemsAll.length == 0" class="no-elements">
+                            Nemate kreiranih oglasa
+                        </div>
                         <div fxLayout="row wrap" fxLayoutGap="20px grid">
                             <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
                                 *ngFor="let item of itemsAll">
@@ -49,6 +52,9 @@
                 </mat-tab>
                 <mat-tab label="Aktivne ponude">
                     <div style="margin: 20px 20px;">
+                        <div *ngIf="itemsActive.length == 0" class="no-elements">
+                            Nemate aktivnih oglasa
+                        </div>
                         <div fxLayout="row wrap" fxLayoutGap="20px grid">
                             <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
                                 *ngFor="let item of itemsActive">
@@ -59,6 +65,9 @@
                 </mat-tab>
                 <mat-tab label="Završene ponude">
                     <div style="margin: 20px 20px;">
+                        <div *ngIf="itemsFinished.length == 0" class="no-elements">
+                            Nemate završenih oglasa
+                        </div>
                         <div fxLayout="row wrap" fxLayoutGap="20px grid">
                             <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="50%" fxFlex.xs="100%"
                                 *ngFor="let item of itemsFinished">

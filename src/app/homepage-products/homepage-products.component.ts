@@ -106,6 +106,7 @@ export class HomepageProductsComponent implements OnInit {
         this.isChipsActive = true;
 
         this.changeDetectorRef.markForCheck();
+        this.paginator.firstPage();
         this.modifyPaginator();
       }
     })

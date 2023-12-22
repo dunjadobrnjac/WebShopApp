@@ -1,49 +1,131 @@
 <div class="content-center">
     <div class="container" #container>
         <div class="form-container sign-up-container">
-            <form>
+            <form [formGroup]="registrationForm">
                 <h1>Registracija</h1>
                 <div class="reg-info-container">
-                    <div class="reg-info">
-                        <input type="text" placeholder="Ime" required />
-                        <input type="username" placeholder="Korisničko ime" required />
-                        <input type="text" placeholder="Grad" required />
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Ime</mat-label>
+                        <input matInput formControlName="firstName" placeholder="Ime" [(ngModel)]="user.first_name"
+                            name="firstName">
+                        <mat-error *ngIf="registrationForm.controls['firstName'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Prezime</mat-label>
+                        <input matInput formControlName="lastName" placeholder="Prezime" [(ngModel)]="user.last_name"
+                            name="lastName">
+                        <mat-error *ngIf="registrationForm.controls['lastName'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Korisničko ime</mat-label>
+                        <input matInput formControlName="username" placeholder="Korisničko ime"
+                            [(ngModel)]="user.username" name="username">
+                        <mat-error *ngIf="registrationForm.controls['username'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Lozinka</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Ime"
+                            [(ngModel)]="user.password" name="password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="registrationForm.controls['password'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Grad</mat-label>
+                        <input matInput formControlName="city" placeholder="Grad" [(ngModel)]="user.city" name="city">
+                        <mat-error *ngIf="registrationForm.controls['city'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Telefon</mat-label>
+                        <input matInput formControlName="telephone" placeholder="Telefon" [(ngModel)]="user.telephone"
+                            name="telephone">
+                        <mat-error *ngIf=" registrationForm.controls['telephone'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                        <mat-error *ngIf=" registrationForm.controls['telephone'].hasError('pattern')">
+                            Format: 06x/xxx-xxx
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" placeholder="Email" [(ngModel)]="user.email"
+                            name="email">
+                        <mat-error *ngIf="registrationForm.controls['email'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="file-div">
+                        <input type="file" class="file-picker" (change)="onFileSelected($event)" #fileUpload>
                     </div>
-                    <div class="reg-info">
-                        <input type="text" placeholder="Prezime" required />
-                        <div class="pass-group">
-                            <input [type]="visible? 'text':'password'" placeholder="Lozinka" required />
-                            <span class="eyeicon" (click)="viewpass()">
-                                <i [ngClass]="visible? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
-                            </span>
-                        </div>
-                        <input type=" email" placeholder="Email" required />
-                    </div>
+
                 </div>
-                <input type="file" class="file-picker" (change)="onFileSelected($event)" #fileUpload>
-                <button>Registruj se</button>
+                <button class="button-btn" (click)="register()">Registruj se</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form>
+            <form [formGroup]="loginForm">
                 <h1>Prijava</h1>
-                <input type="username" placeholder="Korisničko ime" required />
+                <div class="login-div">
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Korisničko ime</mat-label>
+                        <input matInput formControlName="usernameL" placeholder="Korisničko ime" [(ngModel)]="usernameL"
+                            name="usernameL">
+                        <mat-error *ngIf="loginForm.controls['usernameL'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="input-form">
+                        <mat-label>Lozinka</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordL"
+                            placeholder="Lozinka" [(ngModel)]="passwordL" name="passwordL">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="loginForm.controls['passwordL'].hasError('required')">
+                            Obavezno polje!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!--
+                    <input type=" username" placeholder="Korisničko ime" formControlName="usernameL" />
                 <div class="pass-group">
-                    <input [type]="visible? 'text':'password'" placeholder="Lozinka" required />
+                    <input [type]="visible? 'text':'password'" placeholder="Lozinka" formControlName="passwprdL" />
                     <span class="eyeicon" (click)="viewpass()">
                         <i [ngClass]="visible? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
                     </span>
                 </div>
-                <button>Prijavi se</button>
+            -->
+                <button class="button-btn" (click)="login()">Prijavi se</button>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
-                    <button class="ghost" (click)="togglePanel(false)">Prijavi se</button>
+                    <button class="ghost button-btn" (click)="togglePanel(false)">Prijavi se</button>
                 </div>
                 <div class="overlay-panel overlay-right">
-                    <button class="ghost" (click)="togglePanel(true)">Registruj se</button>
+                    <button class="ghost button-btn" (click)="togglePanel(true)">Registruj se</button>
                 </div>
             </div>
         </div>

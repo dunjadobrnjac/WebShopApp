@@ -49,6 +49,7 @@ import { MyPurchasesComponent } from './my-purchases/my-purchases.component';
 
 import { MomentModule } from 'ngx-moment';
 import { NewItemComponent } from './new-item/new-item.component';
+import { PinDialogComponent } from './pin-dialog/pin-dialog.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { NewItemComponent } from './new-item/new-item.component';
         ItemComponentComponent,
         MyPurchasesComponent,
         NewItemComponent,
+        PinDialogComponent,
     ],
     providers: [MatPaginatorIntl,
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },

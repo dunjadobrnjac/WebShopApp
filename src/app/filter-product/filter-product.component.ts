@@ -26,7 +26,7 @@ export class FilterProductComponent implements OnInit {
   }
 
   @Input() allItems!: Item[];
-  filteredItems: any[] = [];
+  filteredItems: Item[] = [];
 
   allcategories = ['--'];
   alllocations = ['--'];
@@ -66,6 +66,7 @@ export class FilterProductComponent implements OnInit {
   clickFilterItems() {
     let isActive = false;
     console.log(this.allItems);
+    console.log(isActive);
 
     if (this.itemName !== '') {
       console.log("filter name " + this.itemName);
@@ -83,7 +84,7 @@ export class FilterProductComponent implements OnInit {
       console.log("filter category " + this.itemCategory);
       if (isActive) {
         this.filteredItems = this.filteredItems.filter(item =>
-          item.category === this.itemCategory);
+          item.category.name === this.itemCategory);
       } else {
         this.filteredItems = this.allItems.filter(item =>
           item.category.name === this.itemCategory);
@@ -93,12 +94,13 @@ export class FilterProductComponent implements OnInit {
 
     if (this.itemPriceMin !== '') {
       console.log("filter cijena min " + this.itemPriceMin);
+
       if (isActive) {
         this.filteredItems = this.filteredItems.filter(item =>
-          item.price >= this.itemPriceMin);
+          parseInt(item.price.replace(/\s/g, '')) >= parseInt(this.itemPriceMin.replace(/\s/g, ''))); //uklanja razmake ako ih ima kod cijene
       } else {
         this.filteredItems = this.allItems.filter(item =>
-          item.price >= this.itemPriceMin);
+          parseInt(item.price.replace(/\s/g, '')) >= parseInt(this.itemPriceMin.replace(/\s/g, '')));
       }
       isActive = true;
     }
@@ -107,10 +109,10 @@ export class FilterProductComponent implements OnInit {
       console.log("filter cijena max " + this.itemPriceMax);
       if (isActive) {
         this.filteredItems = this.filteredItems.filter(item =>
-          item.price <= this.itemPriceMax);
+          parseInt(item.price.replace(/\s/g, '')) <= parseInt(this.itemPriceMax.replace(/\s/g, '')));
       } else {
         this.filteredItems = this.allItems.filter(item =>
-          item.price <= this.itemPriceMax);
+          parseInt(item.price.replace(/\s/g, '')) <= parseInt(this.itemPriceMax.replace(/\s/g, '')));
       }
       isActive = true;
     }
@@ -119,7 +121,7 @@ export class FilterProductComponent implements OnInit {
       console.log("filer stanje " + this.itemStatus);
       if (isActive) {
         this.filteredItems = this.filteredItems.filter(item =>
-          item.status === this.itemStatus);
+          item.status === parseInt(this.itemStatus));
       } else {
         this.filteredItems = this.allItems.filter(item =>
           item.status === parseInt(this.itemStatus));

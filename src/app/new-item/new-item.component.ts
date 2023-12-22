@@ -175,9 +175,6 @@ export class NewItemComponent implements OnInit {
                               verticalPosition: 'top'
                             }
                           )
-                          this.newItemForm.reset();
-                          this.newItemForm.markAsPristine();
-                          this.newItemForm.markAsUntouched();
                         } else {
                           this.snackbar.open("Dodavanje novog oglasa nije uspjelo. Poušajte kasnije ponovo.", "",
                             {
@@ -188,6 +185,7 @@ export class NewItemComponent implements OnInit {
                           )
                         }
                       }
+
                     );
                     if (this.selectedFiles && this.selectedFiles.length > 0) {
                       const formData = new FormData();
@@ -211,6 +209,9 @@ export class NewItemComponent implements OnInit {
         }
       );
     }
+    this.newItemForm.reset();
+    this.newItemForm.markAsPristine();
+    this.newItemForm.markAsUntouched();
   }
 
   onCategoryChanged(event: any) {

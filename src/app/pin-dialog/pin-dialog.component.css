@@ -1,0 +1,35 @@
+.pin-input {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+button {
+    background-color: lightblue;
+    font-size: 16px;
+
+}
+
+.btn-container {
+    gap: 30px;
+    color: white;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+}
+
+.wrapper {
+    padding: 25px;
+    background-color: lightblue;
+}
