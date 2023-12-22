@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RegistrationService } from '../services/registration.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pin-dialog',
@@ -15,16 +15,13 @@ export class PinDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private registrationService: RegistrationService,
     private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder) { }
+    private router: Router) { }
 
-  pinForm!: FormGroup;
+
   ngOnInit(): void {
     setTimeout(() => {
       this.firstInputRef?.nativeElement.focus();
     }, 0);
-    this.pinForm = this.formBuilder.group({
-      control: ['', [Validators.required]],
-    });
   }
 
   onSubmit() {
@@ -44,8 +41,8 @@ export class PinDialogComponent implements OnInit {
               }
             )
             this.dialogRef.close();
+            
           } else {
-            this.pinForm.reset();
             this.firstInputRef.nativeElement.focus();
             this.snackBar.open("Pogrešan pin. Pokušaj ponovo.", '',
               {
@@ -63,34 +60,43 @@ export class PinDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  pin = "";
+  pin = ['', '', '', '']; // Array to hold individual digits
+
   finalPin = "";
 
   @ViewChild('firstInput') firstInputRef!: ElementRef;
 
   handleKeyDown(event: KeyboardEvent, index: number) {
     const key = event.key;
-    if (key === 'Backspace' && this.pin.length > 0) {
-      this.pin = this.pin.slice(0, -1);
-      this.finalPin = this.finalPin.slice(0, -1);
+
+    if (key === 'Backspace' && index >= 0) {
+      // Delete the character at the current index
+      this.pin[index] = '';
+      this.finalPin = this.pin.join('');
+
+      // Focus on the previous input, or reset focus if already at the first input
       if (index > 0) {
         const prevInput = this.firstInputRef.nativeElement.parentElement.querySelectorAll('input')[index - 1];
         prevInput.focus();
+      } else {
+        this.firstInputRef.nativeElement.focus();
       }
-    } else if (this.pin.length < 4) {
-      this.pin += key;
-      this.finalPin += key;
+    } else if (key.length === 1 && this.pin.filter(char => char !== '').length < 4) {
+      // Add the character only if it's a single character and there's less than 4 digits
+      this.pin[index] = key;
+      this.finalPin = this.pin.join('');
+
+      // Focus on the next input if applicable
       if (index < 3) {
         setTimeout(() => {
           const nextInput = this.firstInputRef.nativeElement.parentElement.querySelectorAll('input')[index + 1];
           nextInput.focus();
         }, 0);
       }
-    } else if (this.pin.length === 0) {
-      this.pinForm.reset();
+    } else if (this.pin.every(char => char === '')) {
       this.firstInputRef.nativeElement.focus();
-
     }
   }
+
 
 }

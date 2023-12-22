@@ -4,15 +4,12 @@
         <mat-dialog-content>
             <!-- HTML za unos PIN-a -->
             <span>Trenutni pin je {{data.user.pin}}</span>
-            <form [formGroup]="pinForm"></form>
             <div class="pin-input">
-                <input type="text" #firstInput maxlength="1" (keydown)="handleKeyDown($event, 0)">
-                <input type=" text" maxlength="1" (keydown)="handleKeyDown($event, 1)">
-                <input type=" text" maxlength="1" (keydown)="handleKeyDown($event, 2)">
-                <input type=" text" maxlength="1" (keydown)="handleKeyDown($event, 3)">
+                <input type="text" #firstInput maxlength="1" (keydown)="handleKeyDown($event, 0)" [(ngModel)]="pin[0]">
+                <input type="text" maxlength="1" (keydown)="handleKeyDown($event, 1)" [(ngModel)]="pin[1]">
+                <input type="text" maxlength="1" (keydown)="handleKeyDown($event, 2)" [(ngModel)]="pin[2]">
+                <input type="text" maxlength="1" (keydown)="handleKeyDown($event, 3)" [(ngModel)]="pin[3]">
             </div>
-
-
         </mat-dialog-content>
         <mat-dialog-actions class=" btn-container">
             <button mat-button (click)="onCancel()">Otkaži</button>
