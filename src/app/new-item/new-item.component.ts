@@ -123,7 +123,9 @@ export class NewItemComponent implements OnInit {
       let selectedCategory: Category;
       let currentUser: User;
 
-      this.userService.getUserById(3).subscribe( //ovde treba id trenutnog korisnika
+      const ls = localStorage.getItem("activeUserId");
+      const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+      this.userService.getUserById(activeUserId).subscribe( //ovde treba id trenutnog korisnika
         u => {
           currentUser = u;
           console.log("user -->" + currentUser.username);

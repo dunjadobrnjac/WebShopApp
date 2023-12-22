@@ -64,7 +64,9 @@ export class ShoppingCardComponent {
       //treba kupcu dodati odabrane proizvode u njegovu kupovinu
 
       //dobavljanje trenutnog korisnika
-      this.userService.getUserById(2).subscribe( //zakucan id korisnika
+      const ls = localStorage.getItem("activeUserId");
+      const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+      this.userService.getUserById(activeUserId).subscribe(
         user => {
           this.activeUser = user;
 

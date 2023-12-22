@@ -33,9 +33,9 @@ export class UserProfileComponent {
     private imageService: ImageService) { }
 
   ngOnInit() {
-    //učitavanje trenutnog korisnika
-    //ovo je privremeno dok nema prijave
-    this.userService.getUserById(4).subscribe(
+    const ls = localStorage.getItem("activeUserId");
+    const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+    this.userService.getUserById(activeUserId).subscribe(
       user => {
         this.activeUser = user;
 
@@ -89,24 +89,6 @@ export class UserProfileComponent {
       locationControl: ['', [Validators.required]],
     })
 
-    //pretplata na brisanje artikla od strane vlasnika
-    /*this.itemService.deletedItemSubject.subscribe((deletedItem) => {
-      if (deletedItem.available == 1) {
-        const index = this.itemsActive.indexOf(deletedItem);
-        if (index !== -1) {
-          this.itemsActive.splice(index, 1);
-        }
-      } else {
-        const index = this.itemsFinished.indexOf(deletedItem);
-        if (index !== -1) {
-          this.itemsFinished.splice(index, 1);
-        }
-      }
-      this.itemsAll = this.itemsActive.concat(this.itemsFinished);
-
-      //trenutno obrise elemente iz niza, ali treba ponovo iz baze ucitati 
-      //vjerovatno moram dodati novu kolonu u tabeli
-    })*/
   }
 
 

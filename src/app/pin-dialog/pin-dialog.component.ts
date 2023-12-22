@@ -41,7 +41,15 @@ export class PinDialogComponent implements OnInit {
               }
             )
             this.dialogRef.close();
-            
+            if (this.data.page == 1) { //prijava
+              this.router.navigate(['/homepage-products']);
+              localStorage.setItem("activeUserId", this.data.user.id.toString()); //cuva id prijavljenog korisnika
+              console.log("activeUserId --> " + localStorage.getItem("activeUserId"));
+            } else if (this.data.page == 2) {//registracija
+              window.location.reload();
+            }
+
+
           } else {
             this.firstInputRef.nativeElement.focus();
             this.snackBar.open("Pogrešan pin. Pokušaj ponovo.", '',

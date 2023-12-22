@@ -40,8 +40,9 @@ export class UserSupportComponent implements OnInit {
   }
   activeUser: any;
   ngOnInit(): void {
-    //privremeno dok nemam prijavu i pravog prijavljenog korisnika
-    this.userService.getUserById(1).subscribe(
+    const ls = localStorage.getItem("activeUserId");
+    const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+    this.userService.getUserById(activeUserId).subscribe(
       user => {
         this.activeUser = user;
       }

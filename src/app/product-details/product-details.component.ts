@@ -49,7 +49,9 @@ export class ProductDetailsComponent implements OnInit {
       );
     });
 
-    this.userService.getUserById(1).subscribe( //dohvata trenutnog korisnika
+    const ls = localStorage.getItem("activeUserId");
+    const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+    this.userService.getUserById(activeUserId).subscribe( //dohvata trenutnog korisnika
       user => {
         this.activeUser = user;
       }

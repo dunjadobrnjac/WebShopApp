@@ -65,3 +65,21 @@ export interface MessageNode {
     name: string;
     children?: MessageNode[];
 }
+
+export interface UserWithPin {
+    id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+    city: string;
+    email: string;
+    telephone: string;
+    status: number;
+    pin: string;
+}
+
+export interface UsernamePassword {
+    username: string;
+    password: string;
+    pin: string;
+}

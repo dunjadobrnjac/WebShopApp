@@ -1,18 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { UserWithPin, UsernamePassword } from '../interface/interfaces'
 
-interface UserWithPin {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  city: string;
-  email: string;
-  telephone: string;
-  status: number;
-  pin: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +23,12 @@ export class RegistrationService {
     return this.httpClient.post(url, body, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
+  }
+
+  public loginUser(username: string, password: string, pin: string): any {
+    const url = `${this.baseUrl}/login`;
+    const data: UsernamePassword = { username: username, password: password, pin: pin }
+    return this.httpClient.post(url, data);
   }
 
 }
