@@ -1,17 +1,16 @@
 <div class="comments">
     <h2 class="comments-title">Komentari</h2>
-    <app-comment-form submitLabel="Postavi komentar" (handleSubmit)="addComment({text: $event, parentId:null})">
-    </app-comment-form>
-
+    <div *ngIf="currentUserId!=undefined">
+        <app-comment-form submitLabel="Postavi komentar" (handleSubmit)="addComment({text: $event, parentId:null})">
+        </app-comment-form>
+    </div>
+    <div *ngIf="comments.length ==0" class="no-elements">
+        <span>Još uvijek nema komentara za ovaj artika.</span>
+    </div>
     <div class="comments-container" *ngFor="let comment of comments">
-        <app-comment [comment]="comment" 
-            [currentUserId]="currentUserId" 
-            [replies]="getReplies(comment.id)"
-            [activeComment]="activeComment" 
-            (setActiveComment)="setActiveComment($event)"
-            (addComment)="addComment($event)" 
-            (deleteComment)="deleteComment($event)" 
-            *ngIf="comment.parentId === null">
+        <app-comment [comment]="comment" [currentUserId]="currentUserId" [replies]="getReplies(comment.id)"
+            [activeComment]="activeComment" (setActiveComment)="setActiveComment($event)"
+            (addComment)="addComment($event)" (deleteComment)="deleteComment($event)" *ngIf="comment.parentId === null">
         </app-comment>
     </div>
 </div>

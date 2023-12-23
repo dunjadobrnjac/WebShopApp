@@ -20,7 +20,7 @@
 <div *ngIf="items.length ==0" class="no-elements">
     Nema oglasa iz odabrane ponude
 </div>
-<mat-toolbar class="add-bar">
+<mat-toolbar class="add-bar" *ngIf="isLoggedIn">
     <div routerLink="/new-item" class="example-ripple-container mat-elevation-z4 btn-add" matRipple>
         <mat-icon style="margin-right: 5px;">add</mat-icon> Dodaj novi proizvod
     </div>

@@ -24,6 +24,10 @@
     background-color: rgb(99, 130, 189);
 }
 
+.content {
+    margin-top: 20px;
+}
+
 .toolbar {
     background-color: rgb(99, 130, 189);
     color: #fff;
@@ -44,7 +48,7 @@
 .add-bar {
     font-size: 18px;
     justify-content: end;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: transparent;
 }
 

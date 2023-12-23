@@ -7,6 +7,7 @@ import { ItemService } from '../services/item.service';
 
 import { Location } from '@angular/common';
 import { Item } from '../interface/interfaces';
+import { RegistrationService } from '../services/registration.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class ItemComponentComponent {
     private router: Router,
     private location: Location,
     private shoppingCartService: ShoppingCartService,
-    private itemService: ItemService) { }
+    private itemService: ItemService,
+    private registrationService: RegistrationService) { }
 
 
   /*obrada klika na dugme datalji na kartici, kao i klik na karticu*/
@@ -39,24 +41,40 @@ export class ItemComponentComponent {
 
   /*obrada klika na dugme kupi */
   addItem(item: Item): void {
-    //dodavanje u shopping cart
-    if (this.shoppingCartService.addItemToShoppingCart(item)) {
-      this.snackbar.open("Artikal '" + item.name + "' je dodan u korpu.", "",
-        {
-          duration: 4000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top'
+
+    this.registrationService.isLoggedIn.subscribe(
+      response => {
+        if (response) { //ako je logovan
+          //dodavanje u shopping cart
+          if (this.shoppingCartService.addItemToShoppingCart(item)) {
+            this.snackbar.open("Artikal '" + item.name + "' je dodan u korpu.", "",
+              {
+                duration: 4000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top'
+              }
+            )
+          } else {
+            this.snackbar.open("Artikal je već u korpi.", "",
+              {
+                duration: 4000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top'
+              }
+            )
+          }
+        } else {
+          this.snackbar.open("Prijavite se da bi ste obavili kupovinu.", "",
+            {
+              duration: 4000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom'
+            }
+          )
         }
-      )
-    } else {
-      this.snackbar.open("Artikal je već u korpi.", "",
-        {
-          duration: 4000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top'
-        }
-      )
-    }
+      }
+    );
+
   }
 
   /*obrada klika na dugme obrisi, ako je vlasnik oglasa*/

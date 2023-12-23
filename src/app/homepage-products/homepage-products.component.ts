@@ -7,6 +7,7 @@ import { CategoryService } from '../services/category.service';
 import { ItemService } from '../services/item.service';
 import { ImageService } from '../services/image.service';
 import { User, Category, Item } from '../interface/interfaces';
+import { RegistrationService } from '../services/registration.service';
 
 
 @Component({
@@ -21,12 +22,14 @@ export class HomepageProductsComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private categoryService: CategoryService,
     private itemService: ItemService,
-    private imageService: ImageService) {
+    private imageService: ImageService,
+    private registrationService: RegistrationService) {
 
   }
   searchText: string = ''; /*cuva vrijednost koju korisnik unese */
   isSearchActive: boolean = false;
   isChipsActive: boolean = false;
+  isLoggedIn: boolean = false;
 
   allItems: Item[] = [];
   items: Item[] = [];
@@ -124,6 +127,13 @@ export class HomepageProductsComponent implements OnInit {
     this.paginator._intl.previousPageLabel = "Prethodna stranica";
     this.paginator._intl.lastPageLabel = "Posljednja stranica";
     this.paginator._intl.itemsPerPageLabel = "Broj artikala po stranici:";
+
+    //provjera da li je logovan, da bi zabranio kupovinu i kreiranje novih proizvoda
+    this.registrationService.isLoggedIn.subscribe(
+      response => {
+        this.isLoggedIn = response;
+      }
+    );
   }
 
 
@@ -147,207 +157,6 @@ export class HomepageProductsComponent implements OnInit {
     this.modifyPaginator();
   }
 
-
-  /*
-    items = [
-      {
-        "id": "1",
-        "title": "Samsung Galaxy A4",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 1600,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "2",
-        "title": "Huawei Mate 10 Lite",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 500,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "3",
-        "title": "Opel Corsa",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Automobili",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "4",
-        "title": "Samsung Televizor",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Televizor",
-        "price": 1200,
-        "status": "Korišteno",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "5",
-        "title": "Samsung Galaxy A4",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "6",
-        "title": "Huawei Mate 10 Lite",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 1200,
-        "status": "Korišteno",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "7",
-        "title": "Opel Corsa",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Automobili",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "8",
-        "title": "Samsung Televizor",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Televizor",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      }
-    ];
-  
-    
-    allItems = [
-      {
-        "id": "1",
-        "title": "Samsung Galaxy A4",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 1600,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "2",
-        "title": "Huawei Mate 10 Lite",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 500,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "3",
-        "title": "Opel Corsa",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Automobili",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "4",
-        "title": "Samsung Televizor",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Televizor",
-        "price": 1200,
-        "status": "Korišteno",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "5",
-        "title": "Samsung Galaxy A4",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "6",
-        "title": "Huawei Mate 10 Lite",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Telefoni",
-        "price": 1200,
-        "status": "Korišteno",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "7",
-        "title": "Opel Corsa",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Automobili",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      },
-      {
-        "id": "8",
-        "title": "Samsung Televizor",
-        "description": "Tekst za opis proizvoda. Ovde ce biti puno nekog teksta iz osipa, ali treba da se prikaze samo malo teksta u napocetnoj stranici i ..., a ostatak da se prikaze kada se klikne na sliku ili na dugme dalje.",
-        "category": "Televizor",
-        "price": 1200,
-        "status": "Novo",
-        "location": "Banja Luka",
-        "images": ["https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-3.jpg", "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a04s-4.jpg"],
-        "seller": "marko123",
-        "contact": "065/215-963"
-      }
-    ];
-  */
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   /* za paginator */

@@ -47,9 +47,8 @@
             <span>{{selectedProduct.description}}
             </span>
         </div>
-        <div *ngIf="activeUser != undefined">
-            <app-comments currentUserId={{activeUser.id.toString()}} username={{activeUser.username}}
-                itemId={{selectedProduct.id}}></app-comments>
+        <div>
+            <app-comments itemId={{selectedProduct.id}}></app-comments>
         </div>
     </div>
 </div>

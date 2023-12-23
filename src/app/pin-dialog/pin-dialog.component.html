@@ -1,9 +1,8 @@
 <div class="wrapper">
     <div class="container">
-        <h2 mat-dialog-title>Unesite PIN</h2>
+        <h2 mat-dialog-title>Unesite kod za aktivaciju naloga</h2>
         <mat-dialog-content>
-            <!-- HTML za unos PIN-a -->
-            <span>Trenutni pin je {{data.user.pin}}</span>
+            <!-- <span>Trenutni pin je {{data.user.pin}}</span>-->
             <div class="pin-input">
                 <input type="text" #firstInput maxlength="1" (keydown)="handleKeyDown($event, 0)" [(ngModel)]="pin[0]">
                 <input type="text" maxlength="1" (keydown)="handleKeyDown($event, 1)" [(ngModel)]="pin[1]">

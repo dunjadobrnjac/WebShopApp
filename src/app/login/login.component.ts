@@ -14,11 +14,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   constructor(private formBuilder: FormBuilder,
     private registrationService: RegistrationService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router) { }
+    private router: Router) {
+
+  }
 
   registrationForm!: FormGroup;
   loginForm!: FormGroup;
@@ -40,15 +43,6 @@ export class LoginComponent implements OnInit {
       telephone: "",
       status: 1
     }
-    this.registrationForm = this.formBuilder.group({
-      firstName: ['',],
-      lastName: ['',],
-      username: ['', []],
-      password: ['', []],
-      city: ['', []],
-      telephone: ['', []],
-      email: ['', []],
-    });
 
     this.registrationForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -127,12 +121,34 @@ export class LoginComponent implements OnInit {
             this.loginForm.markAsPristine();//ovo mi ne radi
           } else if (response.pin != null) {
             console.log("generisan pin ->" + response.pin);
+            this.snackbar.open("Uskoro ćete dobiti kod za aktivaciju na svom mejl nalogu. Dobijeni kod unesite u polja za unos koda za aktivaciju naloga.", "",
+              {
+                duration: 10000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom'
+              }
+            )
+            this.registrationService.sendEmail(JSON.stringify(response)).subscribe();
             //otvori formu za unos pina 
             this.openPinDialog(response, 1);
+          } else if (response.status === 3) {
+            this.snackbar.open("Vaš nalog je deaktiviran od strane administratora.", "",
+              {
+                duration: 4000,
+                horizontalPosition: 'center',
+                verticalPosition: 'bottom'
+              }
+            )
+            this.loginForm.reset();
+            this.loginForm.markAsUntouched();
+            this.loginForm.markAsPristine();//ovo mi ne radi
           } else {
             this.router.navigate(['/homepage-products']);
             localStorage.setItem("activeUserId", response.id.toString()); //cuva id prijavljenog korisnika
             console.log("activeUserID --> " + localStorage.getItem("activeUserId"));
+
+            //da se promijeni da je korisnik prijavljen ( u header log out i za pristup drugim komponentama)
+            this.registrationService.setIsLoggedIn(true);
           }
         }
       );

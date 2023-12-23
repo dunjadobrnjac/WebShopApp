@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommentsService } from './comments.service';
+import { UserService } from '../services/user.service';
+import { RegistrationService } from '../services/registration.service';
 
 
 export interface CommentInterface {
@@ -20,20 +22,40 @@ export interface CommentInterface {
 })
 export class CommentsComponent implements OnInit {
 
-  @Input() currentUserId!: string;
-  @Input() username!: string;
+  currentUserId!: string;
+  username!: string;
   @Input() itemId!: string;
 
   comments: CommentInterface[] = []; //cuva dobavljene komentare
   activeComment: CommentInterface | null = null; //koji komentar je aktivan zbog prikaza input polja za reply
 
-  constructor(private commentsService: CommentsService) { }
+  constructor(private commentsService: CommentsService,
+    private userService: UserService,
+    private registrationService: RegistrationService) { }
+
   ngOnInit(): void {
+    //privjera d ali je logovan kako bi mu se o(ne)mogucilo komentarisanje
+    this.registrationService.isLoggedIn.subscribe(
+      response => {
+        if (response) {
+          const ls = localStorage.getItem("activeUserId");
+          console.log("ls " + ls);
+          const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+          this.userService.getUserById(activeUserId).subscribe(
+            user => {
+              this.currentUserId = user.id;
+              this.username = user.username;
+            }
+          );
+        }
+      }
+    );
+
     this.commentsService.getComments().subscribe(comments => {
       let filtered = comments.filter(c => c.itemId == parseInt(this.itemId)); // umjesto 1 staviti id odredjenog artikla
       this.comments = filtered;
     })
-    console.log("id-->" + this.currentUserId);
+    console.log("id -->" + this.currentUserId);
   }
 
   addComment({ text, parentId }: { text: string; parentId: string | null; }): void {

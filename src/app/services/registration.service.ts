@@ -1,12 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserWithPin, UsernamePassword } from '../interface/interfaces'
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
+
+  isLoggedIn = new BehaviorSubject<boolean>(false);
 
   private baseUrl = 'http://localhost:8080/registration';
   constructor(private httpClient: HttpClient) { }
@@ -29,6 +32,17 @@ export class RegistrationService {
     const url = `${this.baseUrl}/login`;
     const data: UsernamePassword = { username: username, password: password, pin: pin }
     return this.httpClient.post(url, data);
+  }
+
+  public setIsLoggedIn(value: boolean) {
+    this.isLoggedIn.next(value);
+  }
+
+  public sendEmail(user: any): any {
+    const url = 'http://localhost:8080/email/send';
+    return this.httpClient.post(url, user, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
   }
 
 }

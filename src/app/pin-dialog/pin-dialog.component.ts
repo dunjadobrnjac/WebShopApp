@@ -42,10 +42,14 @@ export class PinDialogComponent implements OnInit {
             )
             this.dialogRef.close();
             if (this.data.page == 1) { //prijava
+              console.log("prijava -" + this.data.page);
               this.router.navigate(['/homepage-products']);
               localStorage.setItem("activeUserId", this.data.user.id.toString()); //cuva id prijavljenog korisnika
               console.log("activeUserId --> " + localStorage.getItem("activeUserId"));
+              //da se promijeni da je korisnik prijavljen ( u header log out i za pristup drugim komponentama)
+              this.registrationService.setIsLoggedIn(true);
             } else if (this.data.page == 2) {//registracija
+              console.log("registracija -" + this.data.page);
               window.location.reload();
             }
 
