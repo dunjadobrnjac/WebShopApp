@@ -25,6 +25,14 @@ export class ProductDetailsComponent implements OnInit {
   attributes: ItemAttribute[] = [];
 
   ngOnInit(): void {
+    const ls = localStorage.getItem("activeUserId");
+    const activeUserId = ls != null ? parseInt(ls, 10) : 0;
+    this.userService.getUserById(activeUserId).subscribe( //dohvata trenutnog korisnika
+      user => {
+        this.activeUser = user;
+      }
+    );
+
     this.route.params.subscribe(params => {
       const elementId = params['id'];
       //treba dohvatiti element na osnovu id i sacuvati ga u selectedProduct
@@ -48,14 +56,6 @@ export class ProductDetailsComponent implements OnInit {
         }
       );
     });
-
-    const ls = localStorage.getItem("activeUserId");
-    const activeUserId = ls != null ? parseInt(ls, 10) : 0;
-    this.userService.getUserById(activeUserId).subscribe( //dohvata trenutnog korisnika
-      user => {
-        this.activeUser = user;
-      }
-    );
 
   }
 

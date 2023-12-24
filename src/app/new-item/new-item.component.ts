@@ -99,6 +99,7 @@ export class NewItemComponent implements OnInit {
   //klik na dugme za dodavanje
   onAddNewItem() {
     console.log(this.newItem);
+    console.log("category--> " + this.newItem.category_id);
     //provjera za kategoriju i status jer je dropdown meni
     if (this.newItem.category_id == -1) {
       this.newItemForm.controls['categoryControl'].setErrors(Validators.required);
@@ -129,6 +130,7 @@ export class NewItemComponent implements OnInit {
         u => {
           currentUser = u;
           console.log("user -->" + currentUser.username);
+          console.log("category --> " + this.newItem.category_id);
 
           this.categoryService.getCategoryById(this.newItem.category_id).subscribe(
             cat => {
@@ -186,6 +188,11 @@ export class NewItemComponent implements OnInit {
                             }
                           )
                         }
+
+                        // this.newItemForm.reset();
+                        // this.newItemForm.markAsPristine();
+                        // this.newItemForm.markAsUntouched();
+                        window.location.reload();
                       }
 
                     );
@@ -211,9 +218,7 @@ export class NewItemComponent implements OnInit {
         }
       );
     }
-    this.newItemForm.reset();
-    this.newItemForm.markAsPristine();
-    this.newItemForm.markAsUntouched();
+
   }
 
   onCategoryChanged(event: any) {
@@ -226,6 +231,7 @@ export class NewItemComponent implements OnInit {
         this.attributes = attr;
         for (const a of attr) {
           this.newItemAttributes.push({ item: null, attribute: a, value: "" });
+          console.log("category--> " + this.newItem.category_id);
         }
       }
     );
@@ -235,6 +241,7 @@ export class NewItemComponent implements OnInit {
   onFileSelected(event: any) {
     this.selectedFiles = event.target.files;
     console.log("files ->" + this.selectedFiles);
+    console.log("category--> " + this.newItem.category_id);
   }
 
 }

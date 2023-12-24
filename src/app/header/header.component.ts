@@ -37,7 +37,8 @@ export class HeaderComponent implements OnInit {
           this.headerIcon = "login";
           this.headerText = "Prijava / Registracija";
         }
-      });
+      }
+    );
   }
 
   onLogClick() {

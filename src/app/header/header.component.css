@@ -85,6 +85,22 @@ button mat-icon {
     background-color: rgb(99, 130, 189);
 }
 
+.icon-div {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .icon-div {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
 @media (max-width: 767px) {
     .header {
         display: flex;
