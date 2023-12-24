@@ -7,6 +7,7 @@ import { ItemService } from '../services/item.service';
 import { UserService } from '../services/user.service';
 import { PurchasesService } from '../services/purchases.service';
 import { User, Item } from '../interface/interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Purchase {
   //id: number;
@@ -32,7 +33,8 @@ export class ShoppingCardComponent {
     private shoppingCartService: ShoppingCartService,
     private itemService: ItemService,
     private userService: UserService,
-    private purchaseService: PurchasesService) {
+    private purchaseService: PurchasesService,
+    private snackbar: MatSnackBar) {
 
   }
 
@@ -50,6 +52,8 @@ export class ShoppingCardComponent {
   purchase!: Purchase;
   purchaseItems: PurchaseItem[] = [];
 
+  cardNumber: string = "";
+  paymentOption: string = "";
   items: Item[] = [];
   totalPrice: number = 0;
 
@@ -140,6 +144,13 @@ export class ShoppingCardComponent {
   /*brisanje jednog proizvoda */
   deleteItem(item: any) {
     this.shoppingCartService.removeItemFromShoppingCart(item);
+    this.snackbar.open("Uklonili ste proizvod " + item.name + ".", "",
+      {
+        duration: 4000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      }
+    )
   }
 
 }

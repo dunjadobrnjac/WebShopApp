@@ -50,11 +50,11 @@ mat-mdc-option:focus.mdc-list-item,
 }
 
 .mat-mdc-form-field {
-    width: 40%;
+    width: 50%;
 }
 
 .mat-mdc-form-field-error {
-    width: 250px;
+    width: 300px;
 }
 
 .button-div {

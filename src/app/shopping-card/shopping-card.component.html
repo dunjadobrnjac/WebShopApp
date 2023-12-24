@@ -72,16 +72,25 @@
     <mat-step [completed]="isSecondStepCompleted" *ngIf="showPaymentStep">
         <ng-template matStepLabel>Plaćanje</ng-template>
         <p>Odaberite način plaćanja proizvoda.</p>
-        <mat-form-field class="mat-input" appearance="outline">
-            <mat-label>Način plaćanja</mat-label>
-            <mat-select required [formControl]="paymentControl">
-                <mat-option value="kartica">Plaćanje karticom</mat-option>
-                <mat-option value="preuzimanje">Prilikom preuzimanja</mat-option>
-            </mat-select>
-            <mat-error *ngIf="paymentControl.hasError('required')">
-                Odaberite način plaćanja!
-            </mat-error>
-        </mat-form-field>
+        <div style="display: flex; flex-direction: column;">
+            <mat-form-field class="mat-input" appearance="outline">
+                <mat-label>Način plaćanja</mat-label>
+                <mat-select required [formControl]="paymentControl" [(ngModel)]="paymentOption">
+                    <mat-option value="kartica">Plaćanje karticom</mat-option>
+                    <mat-option value="preuzimanje">Prilikom preuzimanja</mat-option>
+                </mat-select>
+                <mat-error *ngIf="paymentControl.hasError('required')">
+                    Odaberite način plaćanja!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mat-input" appearance="outline" *ngIf="paymentOption=='kartica'">
+                <mat-label>Broj kartice</mat-label>
+                <input matInput placeholder="Unesite broj kartice" [(ngModel)]="cardNumber" name="brojKartice"
+                    maxlength="16" minlength="16" required />
+                <mat-error *ngIf="cardNumber==''">Unesite broj kartice.</mat-error>
+                <mat-error *ngIf=" cardNumber?.length !==16">Broj kartice mora imati tačno 16 cifara.</mat-error>
+            </mat-form-field>
+        </div>
         <div class="button-div">
             <button mat-raised-button matStepperPrevious>Natrag na pregled</button>
             <button mat-raised-button matStepperNext (click)="showThirdStep()">Završi kupovinu</button>
