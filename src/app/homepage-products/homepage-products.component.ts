@@ -33,10 +33,23 @@ export class HomepageProductsComponent implements OnInit {
 
   allItems: Item[] = [];
   items: Item[] = [];
-  pageSlice = this.items.slice(0, 8);
+  pageSlice = this.items.slice(0, 6);
 
   ngOnInit(): void {
-    this.paginator.pageSize = 8;
+    this.paginator.pageSize = 6;
+
+    //provjera da li je logovan, da bi zabranio kupovinu i kreiranje novih proizvoda
+    this.registrationService.isLoggedIn.subscribe(
+      response => {
+        this.isLoggedIn = response;
+      }
+    );
+
+    /*if (localStorage.getItem("activeUserId") == null) {
+      this.registrationService.setIsLoggedIn(false);
+    } else {
+      this.registrationService.setIsLoggedIn(true);
+    }*/
 
     //dobavljanje svih artikala iz baze
     this.itemService.getAllItems().subscribe(
@@ -52,9 +65,9 @@ export class HomepageProductsComponent implements OnInit {
               this.allItems = items.sort((a: Item, b: Item) => new Date(b.creation_date).getTime() - new Date(a.creation_date).getTime());
               this.items = this.allItems;
 
-              console.log("ognje" + JSON.parse(s).images);
+              console.log("//" + JSON.parse(s).images);
 
-              this.pageSlice = this.items.slice(0, 8);
+              this.pageSlice = this.items.slice(0, 6);
             }
           )
         }
@@ -128,12 +141,6 @@ export class HomepageProductsComponent implements OnInit {
     this.paginator._intl.lastPageLabel = "Posljednja stranica";
     this.paginator._intl.itemsPerPageLabel = "Broj artikala po stranici:";
 
-    //provjera da li je logovan, da bi zabranio kupovinu i kreiranje novih proizvoda
-    this.registrationService.isLoggedIn.subscribe(
-      response => {
-        this.isLoggedIn = response;
-      }
-    );
   }
 
 

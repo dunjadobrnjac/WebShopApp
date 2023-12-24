@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserWithPin, UsernamePassword } from '../interface/interfaces'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RegistrationService {
 
+  //isLoggedIn = new Subject<boolean>();
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
   private baseUrl = 'http://localhost:8080/registration';
@@ -36,6 +37,7 @@ export class RegistrationService {
 
   public setIsLoggedIn(value: boolean) {
     this.isLoggedIn.next(value);
+    console.log("------->" + value);
   }
 
   public sendEmail(user: any): any {

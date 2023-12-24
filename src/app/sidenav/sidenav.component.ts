@@ -26,6 +26,7 @@ export class SidenavComponent implements OnInit {
     this.registrationService.isLoggedIn.subscribe(
       response => {
         if (response) {
+          //if (localStorage.getItem("activeUserId") != null) {
           this.navData = [
             {
               routeLink: 'homepage-products',
@@ -92,20 +93,10 @@ export class SidenavComponent implements OnInit {
       label: 'Proizvodi',
     },
     {
-      routeLink: 'user-profile',
-      icon: 'fa fa-user',
-      label: 'Moj profil'
-    },
-    {
-      routeLink: 'my-purchases',
-      icon: 'fa fa-shopping-basket',
-      label: 'Moje kupovine'
-    },
-    {
-      routeLink: 'user-support',
-      icon: 'fa fa-info-circle',
-      label: 'Korisnička podrška'
-    },
+      routeLink: 'login',
+      icon: 'fa fa-sign-in',
+      label: 'Prijava/ Registracija'
+    }
   ];
 
 

@@ -15,7 +15,7 @@ import { RegistrationService } from '../services/registration.service';
   templateUrl: './item-component.component.html',
   styleUrls: ['./item-component.component.css']
 })
-export class ItemComponentComponent {
+export class ItemComponentComponent implements OnInit {
 
   @Input() item!: Item;
   @Input() searchText: string = '';
@@ -27,10 +27,14 @@ export class ItemComponentComponent {
 
   constructor(private snackbar: MatSnackBar,
     private router: Router,
-    private location: Location,
     private shoppingCartService: ShoppingCartService,
     private itemService: ItemService,
     private registrationService: RegistrationService) { }
+
+
+  ngOnInit(): void {
+
+  }
 
 
   /*obrada klika na dugme datalji na kartici, kao i klik na karticu*/
@@ -42,10 +46,13 @@ export class ItemComponentComponent {
   /*obrada klika na dugme kupi */
   addItem(item: Item): void {
 
+    //if (localStorage.getItem("activeUserId") != null) { 
     this.registrationService.isLoggedIn.subscribe(
       response => {
-        if (response) { //ako je logovan
+        if (response) {
+          //ako je logovan
           //dodavanje u shopping cart
+
           if (this.shoppingCartService.addItemToShoppingCart(item)) {
             this.snackbar.open("Artikal '" + item.name + "' je dodan u korpu.", "",
               {
@@ -74,7 +81,6 @@ export class ItemComponentComponent {
         }
       }
     );
-
   }
 
   /*obrada klika na dugme obrisi, ako je vlasnik oglasa*/
