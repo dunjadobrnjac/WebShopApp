@@ -1,6 +1,7 @@
 <div class="comment">
     <div class="comment-image-container">
-        <img style="height: 25px;" src="../../assets/user_photo.png" />
+        <img *ngIf="image==undefined" style="height: 25px;" src="../../assets/user_photo.png" />
+        <img *ngIf="image!=undefined" style="height: 25px;" [src]="'http://127.0.0.1:4000/images/users/'+image" />
     </div>
     <div class="comment-right-part">
         <div class="comment-content">

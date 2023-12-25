@@ -19,4 +19,10 @@ export class ImageService {
     const url = `${this.baseUrl}/getImages/${id}`;
     return this.httpClient.get<string[]>(url);
   }
+
+  //slike za korisnika
+  public storeImageForUser(formData: FormData, id: string) {
+    const url = `${this.baseUrl}/images/${id}`;
+    return this.httpClient.post(url, formData)
+  }
 }

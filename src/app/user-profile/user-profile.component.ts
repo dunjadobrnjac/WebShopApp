@@ -85,16 +85,18 @@ export class UserProfileComponent {
     this.changeUserInfoForm = this.formBuilder.group({
       firstNameControl: ['', [Validators.required]],
       lastNameControl: ['', [Validators.required]],
-      telephoneControl: ['', [Validators.required]],
+      telephoneControl: ['', [Validators.required, Validators.pattern(/^\d{3}\/\d{3}-\d{3}$/)]],
       locationControl: ['', [Validators.required]],
     })
 
   }
 
 
+  selectedFile!: File;
   /*za odabir slike avatara kod izmjene profila */
   onFileSelected(event: any) {
-
+    this.selectedFile = event.target.files[0];
+    console.log("file ->" + this.selectedFile);
   }
 
   /* za mail ispis poruke ako nije validan */
@@ -142,25 +144,64 @@ export class UserProfileComponent {
 
   onChangeUserInfo(): void {
     console.log("klinuo na dugme");
-    this.userService.updateUser(this.activeUser).subscribe(
-      user => {
-        if (user != null) {
-          this.snackBar.open("Podaci su uspješno ažurirani.", '',
-            {
-              duration: 4000, /*ovo mi nije radilo, pa ima u providers */
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom'
-            })
-        } else {
-          this.snackBar.open("Desila se greška. Pokušajte kasnije ponovo.", '',
-            {
-              duration: 4000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom'
-            })
-        }
+    if (this.changeUserInfoForm.valid) {
+
+      if (this.selectedFile) {
+        const formData = new FormData();
+
+        formData.append('slika', this.selectedFile);
+
+        this.imageService.storeImageForUser(formData, "users").subscribe(
+          response => {
+            console.log("Image " + response);
+            //ako je upisao sliku, onda moze dalje upisati korisnika, jer je vracena putanja do slike
+            let image = JSON.parse(JSON.stringify(response));
+            console.log(image.uploadedImages);
+            this.activeUser.avatar = image.uploadedImages[0];
+
+            this.userService.updateUser(this.activeUser).subscribe(
+              user => {
+                if (user != null) {
+                  this.snackBar.open("Podaci su uspješno ažurirani.", '',
+                    {
+                      duration: 4000, /*ovo mi nije radilo, pa ima u providers */
+                      horizontalPosition: 'center',
+                      verticalPosition: 'bottom'
+                    })
+                } else {
+                  this.snackBar.open("Desila se greška. Pokušajte kasnije ponovo.", '',
+                    {
+                      duration: 4000,
+                      horizontalPosition: 'center',
+                      verticalPosition: 'bottom'
+                    })
+                }
+              }
+            );
+          }
+        );
+      } else {
+        this.userService.updateUser(this.activeUser).subscribe(
+          user => {
+            if (user != null) {
+              this.snackBar.open("Podaci su uspješno ažurirani.", '',
+                {
+                  duration: 4000, /*ovo mi nije radilo, pa ima u providers */
+                  horizontalPosition: 'center',
+                  verticalPosition: 'bottom'
+                })
+            } else {
+              this.snackBar.open("Desila se greška. Pokušajte kasnije ponovo.", '',
+                {
+                  duration: 4000,
+                  horizontalPosition: 'center',
+                  verticalPosition: 'bottom'
+                })
+            }
+          }
+        );
       }
-    );
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommentInterface } from '../comments/comments.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-comment',
@@ -14,6 +15,9 @@ export class CommentComponent implements OnInit {
   //createdAt: string = '';
   canReply: boolean = false;
   canDelete: boolean = false;
+  image!: string;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.canReply = Boolean(this.currentUserId); //ako je null ili undefined vratice false, inace vraca true (neprijavljeni korisnici ne mogu odgovoriti na komentar)
@@ -22,6 +26,12 @@ export class CommentComponent implements OnInit {
       this.replies.length === 0; //moze obrisati ako nema odgovora
 
     this.replyId = this.parentId ? this.parentId : this.comment.id;
+
+    this.userService.getUserById(parseInt(this.comment.userId)).subscribe(
+      response => {
+        this.image = response.avatar;
+      }
+    );
   }
 
   //kada se klikne na reply taj komentar se postavi da je aktivan

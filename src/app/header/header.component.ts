@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
 
       localStorage.removeItem("activeUserId"); //uklanja korisnika jer radi odjavu
       this.registrationService.setIsLoggedIn(false);
+      this.shoppingCartService.clearShoppingCart();
     }
     console.log("/***/");
     this.router.navigate(['/login']);

@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PinDialogComponent } from '../pin-dialog/pin-dialog.component';
 import { Router } from '@angular/router';
+import * as bcrypt from 'bcryptjs';
+import { ImageService } from '../services/image.service';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
     private registrationService: RegistrationService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private imageService: ImageService) {
 
   }
 
@@ -41,7 +44,8 @@ export class LoginComponent implements OnInit {
       city: "",
       email: "",
       telephone: "",
-      status: 1
+      status: 1,
+      avatar: null
     }
 
     this.registrationForm = this.formBuilder.group({
@@ -70,41 +74,83 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  avatarImageFile: any;
+  avatarImageFile!: File;
   onFileSelected(event: any) {
     /* za dodavanje fajla prilikom registracije */
     if (event.target.files) {
-      const file = event.target.files[0];
+      this.avatarImageFile = event.target.files[0];
     }
   }
 
   register() {
     if (this.registrationForm.valid) {
       console.log("registracija " + this.registrationForm.valid);
-      this.registrationService.registerUser(this.user).subscribe(
-        (response: UserWithPin) => {
-          console.log(response); //vracen korisnik koji ima pin
-          if (response != null) {
-            //otvori formu za unos pina 
-            this.openPinDialog(response, 2);
-          } else {
-            this.snackbar.open("Korisničko ime je zauzeto.", "",
-              {
-                duration: 4000,
-                horizontalPosition: 'center',
-                verticalPosition: 'top'
+      //prvo ide cuvanje slike
+
+      if (this.avatarImageFile != null) {
+        const formData = new FormData();
+
+        formData.append('slika', this.avatarImageFile);
+
+        this.imageService.storeImageForUser(formData, "users").subscribe(
+          response => {
+            console.log("Image " + response);
+            //ako je upisao sliku, onda moze dalje upisati korisnika, jer je vracena putanja do slike
+            let image = JSON.parse(JSON.stringify(response));
+            console.log(image.uploadedImages);
+            this.user.avatar = image.uploadedImages[0];
+
+            //hesiranje lozinke
+            //this.user.password = bcrypt.hash(this.user.password, 10);
+            this.registrationService.registerUser(this.user).subscribe(
+              (response: UserWithPin) => {
+                console.log(response); //vracen korisnik koji ima pin
+                if (response != null) {
+                  //otvori formu za unos pina 
+                  this.openPinDialog(response, 2);
+                } else {
+                  this.snackbar.open("Korisničko ime je zauzeto.", "",
+                    {
+                      duration: 4000,
+                      horizontalPosition: 'center',
+                      verticalPosition: 'top'
+                    }
+                  )
+                  this.user.username = "";
+                }
               }
-            )
-            this.user.username = "";
+            );
           }
-        }
-      );
+        );
+      } else {
+        //hesiranje lozinke
+        //this.user.password = bcrypt.hash(this.user.password, 10);
+        this.registrationService.registerUser(this.user).subscribe(
+          (response: UserWithPin) => {
+            console.log(response); //vracen korisnik koji ima pin
+            if (response != null) {
+              //otvori formu za unos pina 
+              this.openPinDialog(response, 2);
+            } else {
+              this.snackbar.open("Korisničko ime je zauzeto.", "",
+                {
+                  duration: 4000,
+                  horizontalPosition: 'center',
+                  verticalPosition: 'top'
+                }
+              )
+              this.user.username = "";
+            }
+          }
+        );
+      }
     }
   }
 
   login() {
     if (this.loginForm.valid) {
       console.log("login " + this.loginForm.valid);
+      //this.passwordL = bcrypt.hash(this.passwordL, 10);
       this.registrationService.loginUser(this.usernameL, this.passwordL, "").subscribe(
         (response: UserWithPin) => {
           console.log(" ->" + JSON.stringify(response));
@@ -116,9 +162,10 @@ export class LoginComponent implements OnInit {
                 verticalPosition: 'bottom'
               }
             )
-            this.loginForm.reset();
+            /*this.loginForm.reset();
             this.loginForm.markAsUntouched();
-            this.loginForm.markAsPristine();//ovo mi ne radi
+            this.loginForm.markAsPristine();//ovo mi ne radi*/
+            setTimeout(() => { window.location.reload(); }, 2000);
           } else if (response.pin != null) {
             console.log("generisan pin ->" + response.pin);
             this.snackbar.open("Uskoro ćete dobiti kod za aktivaciju na svom mejl nalogu. Dobijeni kod unesite u polja za unos koda za aktivaciju naloga.", "",
@@ -139,9 +186,10 @@ export class LoginComponent implements OnInit {
                 verticalPosition: 'bottom'
               }
             )
-            this.loginForm.reset();
+            /*this.loginForm.reset();
             this.loginForm.markAsUntouched();
-            this.loginForm.markAsPristine();//ovo mi ne radi
+            this.loginForm.markAsPristine();//ovo mi ne radi*/
+            setTimeout(() => { window.location.reload(); }, 2000);
           } else {
             this.router.navigate(['/homepage-products']);
             localStorage.setItem("activeUserId", response.id.toString()); //cuva id prijavljenog korisnika

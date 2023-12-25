@@ -81,7 +81,7 @@ form {
 
 .file-picker {
     padding: 7px;
-    height: 54px;
+    height: 55px;
     width: 100%;
 }
 
@@ -151,7 +151,7 @@ form {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     margin-top: 20px;
     padding-top: 10px;
     margin-right: 10px;
@@ -163,13 +163,14 @@ form {
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    gap: 20px;
+    gap: 10px;
     width: 100%;
 }
 
 .input-form {
     width: 48%;
 }
+
 
 
 @keyframes show {
@@ -267,6 +268,10 @@ form {
     margin: 0 5px;
     height: 40px;
     width: 40px;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-subscript-wrapper {
+    margin-bottom: 3px;
 }
 
 

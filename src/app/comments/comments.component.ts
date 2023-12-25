@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommentsService } from './comments.service';
 import { UserService } from '../services/user.service';
 import { RegistrationService } from '../services/registration.service';
+import { User } from '../interface/interfaces';
 
 
 export interface CommentInterface {
@@ -24,6 +25,7 @@ export class CommentsComponent implements OnInit {
 
   currentUserId!: string;
   username!: string;
+  image!: string;
   @Input() itemId!: string;
 
   comments: CommentInterface[] = []; //cuva dobavljene komentare
@@ -52,7 +54,7 @@ export class CommentsComponent implements OnInit {
     );
 
     this.commentsService.getComments().subscribe(comments => {
-      let filtered = comments.filter(c => c.itemId == parseInt(this.itemId)); // umjesto 1 staviti id odredjenog artikla
+      let filtered = comments.filter(c => c.itemId == parseInt(this.itemId)); 
       this.comments = filtered;
     })
     console.log("id -->" + this.currentUserId);
@@ -63,7 +65,7 @@ export class CommentsComponent implements OnInit {
     this.commentsService
       .createComment(text, parentId, this.username, this.currentUserId, parseInt(this.itemId))
       .subscribe((createdComment) => {
-        this.comments = [...this.comments, createdComment]; //dodavanje komentara u nasu listu komentara
+        this.comments = [...this.comments, createdComment]; //dodavanje komentara u listu komentara
         this.activeComment = null; //da se skloni forma nakon dodavanja odgovora
       });
   }

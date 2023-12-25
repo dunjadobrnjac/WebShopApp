@@ -241,7 +241,6 @@ export class NewItemComponent implements OnInit {
   onFileSelected(event: any) {
     this.selectedFiles = event.target.files;
     console.log("files ->" + this.selectedFiles);
-    console.log("category--> " + this.newItem.category_id);
   }
 
 }

@@ -26,6 +26,24 @@
       "userId": "1",
       "username": "dunja123",
       "id": "it_8Vug"
+    },
+    {
+      "itemId": 10,
+      "body": "Ovo je komentar za Huawei telefon.",
+      "parentId": null,
+      "createdAt": "2023-12-25T18:01:12.409Z",
+      "userId": 1,
+      "username": "dunja123",
+      "id": "jkuPGAh"
+    },
+    {
+      "itemId": 10,
+      "body": "Ovo je odgovor na komentar za Huawei telefon.",
+      "parentId": "jkuPGAh",
+      "createdAt": "2023-12-25T18:09:43.002Z",
+      "userId": 2,
+      "username": "jana123",
+      "id": "lehFX6B"
     }
   ]
 }

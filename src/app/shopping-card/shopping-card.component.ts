@@ -61,8 +61,13 @@ export class ShoppingCardComponent {
   showPaymentStep: boolean = true;
 
   showThirdStep(): void {
-    if (this.paymentControl.valid && this.items.length > 0) {
+    if (this.paymentControl.valid) {
 
+      if (this.paymentOption == "kartica") {
+        if (this.cardNumber.length != 16) {
+          return;
+        }
+      }
       //korisnik je kliknuo na zavrsi kupovinu
       //prikazuje mu se potvrda o kupovini
       //treba kupcu dodati odabrane proizvode u njegovu kupovinu

@@ -21,6 +21,7 @@ export interface User {
     email: string;
     telephone: string;
     status: number;
+    avatar: string;
 }
 
 export interface Category {

@@ -2,8 +2,9 @@
     <mat-tab label="Korisnički profil">
         <div class="container">
             <div class="user-avatar-div">
-                <img src="https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                <img *ngIf="activeUser.avatar!=null" [src]="'http://127.0.0.1:4000/images/users/'+activeUser.avatar"
                     alt="avatar" class="user-avatar">
+                <img *ngIf="activeUser.avatar==null" src="../../assets/user_photo.png" alt="avatar" class="user-avatar">
             </div>
 
             <div class="user-info">
@@ -120,6 +121,9 @@
                     [(ngModel)]="activeUser.telephone" name="userTelephone">
                 <mat-error *ngIf="changeUserInfoForm.controls['telephoneControl'].hasError('required')">
                     Ovo polje je obavezno!
+                </mat-error>
+                <mat-error *ngIf=" changeUserInfoForm.controls['telephoneControl'].hasError('pattern')">
+                    Format: 06x/xxx-xxx
                 </mat-error>
             </mat-form-field>
 
