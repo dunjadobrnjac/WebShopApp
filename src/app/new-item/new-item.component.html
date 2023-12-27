@@ -37,8 +37,8 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Cijena (BAM)</mat-label>
-        <input matInput required formControlName="priceControl" placeholder="Cijena" [(ngModel)]="newItem.price"
-            name="price">
+        <input type="number" matInput required formControlName="priceControl" placeholder="Cijena"
+            [(ngModel)]="newItem.price" name="price">
         <mat-error *ngIf="newItemForm.controls['priceControl'].hasError('required')">
             Ovo polje je obavezno!
         </mat-error>
